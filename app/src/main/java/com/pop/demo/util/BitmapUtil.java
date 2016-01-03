@@ -27,6 +27,20 @@ public class BitmapUtil {
 		bitmap=null;
 		return ret;
 	}
+
+    public static Bitmap getBitmapFromResource(Resources res, int resId,int reqWidth, int reqHeight)
+    {
+        Bitmap bitmap=decodeSampledBitmapFromResource(res, resId, reqWidth, reqHeight);
+        float rW=(float)reqWidth/(float)bitmap.getWidth();
+        float rH=(float)reqHeight/(float)bitmap.getHeight();
+        float r= Math.max(rW, rH);
+        int retWidth=(int) (bitmap.getWidth()*r);
+        int retHeight=(int) (bitmap.getHeight()*r);
+        Bitmap ret= Bitmap.createScaledBitmap(bitmap, retWidth, retHeight, false);
+        bitmap.recycle();
+        bitmap=null;
+        return ret;
+    }
 	
 	public static Bitmap getFitBitmapFromFile(String pathName,int reqWidth, int reqHeight)
 	{

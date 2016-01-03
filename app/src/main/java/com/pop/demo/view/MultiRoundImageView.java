@@ -24,6 +24,10 @@ public class MultiRoundImageView extends View {
         super(context, attrs);
     }
 
+    private int mPerWidth ;
+    public void setPerWidth(int width){
+        mPerWidth = width ;
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -31,20 +35,23 @@ public class MultiRoundImageView extends View {
         int width = getWidth() ;
         int height = getHeight() ;
         if(mImages != null){
-            int per_width =  100 ;
             for (int i =0 ;i<mImages.size() ;i++){
-                canvas.drawBitmap(genBitmap(mImages.get(i)) ,i * 100, getTop() ,null);
+                canvas.drawBitmap(genBitmap(mImages.get(i) ,mPerWidth) ,i * 100, getTop() ,null);
             }
         }
     }
 
-    private Bitmap genBitmap(Bitmap bitmapSrc){
-        Bitmap oral = makeDst(100 ,100) ;
+    private Bitmap genBitmap(Bitmap bitmapSrc ,int width){
+        Bitmap oral = makeDst(width ,width) ;
         Canvas canvas = new Canvas(oral) ;
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG) ;
-        canvas.drawCircle(50,50,50,paint);
+        int radius = width /2 ;
+        paint.setColor(Color.WHITE);
+        canvas.drawCircle(radius,radius,radius,paint);
+        int src_width = bitmapSrc.getWidth() ;
+        int src_height = bitmapSrc.getHeight() ;
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmapSrc, 0, 0, paint);
+        canvas.drawBitmap(bitmapSrc, (width-src_width)/2.0f, (width-src_height)/2.0f, paint);
         return oral ;
     }
 
@@ -58,7 +65,7 @@ public class MultiRoundImageView extends View {
         Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-        p.setColor(Color.TRANSPARENT);
+        p.setColor(Color.WHITE);
         c.drawOval(new RectF(0, 0, w, h), p);
         return bm;
     }

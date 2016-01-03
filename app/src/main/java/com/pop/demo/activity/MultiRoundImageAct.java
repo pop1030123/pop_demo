@@ -24,10 +24,12 @@ public class MultiRoundImageAct extends Activity {
         setContentView(R.layout.act_multi_round_image);
 
         mMultiView = (MultiRoundImageView)findViewById(R.id.multi_round_view) ;
+        int width = 100 ;
+        mMultiView.setPerWidth(width);
         List<Bitmap> imageList = new ArrayList<>() ;
-        imageList.add(BitmapUtil.getFitBitmapFromResource(getResources() ,R.drawable.img1 ,100 ,100)) ;
-        imageList.add(BitmapUtil.getFitBitmapFromResource(getResources() ,R.drawable.img2 ,100 ,100)) ;
-        imageList.add(BitmapUtil.getFitBitmapFromResource(getResources() ,R.drawable.img3 ,100 ,100)) ;
+        imageList.add(BitmapUtil.getBitmapFromResource(getResources(), R.drawable.img1, width, width)) ;
+        imageList.add(BitmapUtil.getBitmapFromResource(getResources(), R.drawable.img2, width, width)) ;
+        imageList.add(BitmapUtil.getBitmapFromResource(getResources(), R.drawable.img3, width, width)) ;
         mMultiView.setImages(imageList);
     }
 
