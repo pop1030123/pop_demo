@@ -7,6 +7,8 @@ import android.util.DisplayMetrics;
  * Created by pengfu on 16/2/23.
  */
 public class App extends Application {
+
+    public static final String TAG = "popdemo:" ;
     /**
      * width of screen in pixels
      */

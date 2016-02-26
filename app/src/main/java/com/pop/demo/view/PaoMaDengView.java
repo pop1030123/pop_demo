@@ -19,48 +19,51 @@ import com.pop.demo.activity.PaoMaDengAct;
 public class PaoMaDengView extends SurfaceView {
 
 
-    private PaintFlagsDrawFilter drawFilter =new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
-    private String[] ads = {"有志者，事竟成。" ,"猴塞雷" ,"要什么跑马灯？？"} ;
+    private PaintFlagsDrawFilter drawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+    private String[] ads = {"有志者，事竟成。", "猴塞雷", "要什么跑马灯？？"};
 
-    private SurfaceHolder holder ;
-    private Paint paint ;
-    private int index ;
-    private static boolean isRun ;
+    private SurfaceHolder holder;
+    private Paint paint;
+    private int index;
+    private static boolean isRun;
 
     public PaoMaDengView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public String getText(){
-        return ads[index] ;
+    public String getText() {
+        return ads[index];
     }
 
-    public void start(){
-        isRun = true ;
-        paint = new Paint() ;
+    public void start() {
+        Log.d(App.TAG, "paomadeng start.");
+        isRun = true;
+        paint = new Paint();
         paint.setColor(Color.RED);
         paint.setTextSize(32);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                holder = getHolder() ;
-                int startX = App.SCREEN_WIDTH ;
-                String text = ads[index] ;
-                while(isRun){
+                holder = getHolder();
+                int startX = App.SCREEN_WIDTH;
+                String text = ads[index];
+                while (isRun) {
                     float textLength = paint.measureText(text);
-                    if(startX <= -textLength){
-                        index++ ;
-                        index = index%3 ;
-                        text = ads[index] ;
-                        startX = App.SCREEN_WIDTH ;
+                    if (startX <= -textLength) {
+                        index++;
+                        index = index % 3;
+                        text = ads[index];
+                        startX = App.SCREEN_WIDTH;
                     }
-                    Canvas canvas = holder.lockCanvas() ;
-                    canvas.setDrawFilter(drawFilter);
-                    canvas.drawColor(Color.WHITE);
-                    canvas.drawText(text,startX,50,paint);
-                    Log.d("ssss" ,"draw "+ startX) ;
-                    startX-=5 ;
-                    holder.unlockCanvasAndPost(canvas);
+                    Canvas canvas = holder.lockCanvas();
+                    if (canvas != null) {
+                        canvas.setDrawFilter(drawFilter);
+                        canvas.drawColor(Color.WHITE);
+                        canvas.drawText(text, startX, 50, paint);
+                        Log.d("ssss", "draw " + startX);
+                        startX -= 5;
+                        holder.unlockCanvasAndPost(canvas);
+                    }
                     try {
                         Thread.currentThread().sleep(5);
                     } catch (InterruptedException e) {
@@ -71,7 +74,8 @@ public class PaoMaDengView extends SurfaceView {
         }).start();
     }
 
-    public void stop(){
-        isRun = false ;
+    public void stop() {
+        Log.d(App.TAG, "paomadeng stop.");
+        isRun = false;
     }
 }
