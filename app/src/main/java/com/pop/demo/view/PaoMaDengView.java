@@ -25,7 +25,7 @@ public class PaoMaDengView extends SurfaceView {
     private SurfaceHolder holder;
     private Paint paint;
     private int index;
-    private static boolean isRun;
+    private static boolean isRun ,isPause;
 
     public PaoMaDengView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,27 +48,27 @@ public class PaoMaDengView extends SurfaceView {
                 int startX = App.SCREEN_WIDTH;
                 String text = ads[index];
                 while (isRun) {
-                    float textLength = paint.measureText(text);
-                    if (startX <= -textLength) {
-                        index++;
-                        index = index % 3;
-                        text = ads[index];
-                        startX = App.SCREEN_WIDTH;
-                    }
-                    Canvas canvas = holder.lockCanvas();
-                    if (canvas != null) {
-                        canvas.setDrawFilter(drawFilter);
-                        canvas.drawColor(Color.WHITE);
-                        canvas.drawText(text, startX, 50, paint);
-                        Log.d("ssss", "draw " + startX);
-                        startX -= 5;
-                        holder.unlockCanvasAndPost(canvas);
-                    }
-                    try {
-                        Thread.currentThread().sleep(5);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    if(!isPause){
+                        float textLength = paint.measureText(text);
+                        if (startX <= -textLength) {
+                            index++;
+                            index = index % 3;
+                            text = ads[index];
+                            startX = App.SCREEN_WIDTH;
+                        }
+                        try{
+                            Canvas canvas = holder.lockCanvas();
+                            if (canvas != null) {
+                                canvas.setDrawFilter(drawFilter);
+                                canvas.drawColor(Color.WHITE);
+                                canvas.drawText(text, startX, 50, paint);
+                                startX -= 5;
+                                holder.unlockCanvasAndPost(canvas);
+                                Thread.currentThread().sleep(5);
+                            }
+                            }catch (Exception e){
+                            }
+                        }
                 }
             }
         }).start();
@@ -77,5 +77,12 @@ public class PaoMaDengView extends SurfaceView {
     public void stop() {
         Log.d(App.TAG, "paomadeng stop.");
         isRun = false;
+    }
+
+    public void pause(){
+        isPause = true ;
+    }
+    public void resume(){
+        isPause = false ;
     }
 }
