@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 
 import com.pop.demo.App;
 import com.pop.demo.R;
@@ -22,7 +23,10 @@ public class PaoMaDengAct extends FragmentActivity implements View.OnTouchListen
         super.onCreate(savedInstanceState);
         Log.d(App.TAG ,"onCreate");
         setContentView(R.layout.act_pao_ma_deng);
-        findViewById(R.id.scrollView).setOnTouchListener(this);
+
+        ScrollView sv = (ScrollView) findViewById(R.id.scrollView);
+        sv.setOnTouchListener(this);
+
         frag = new PaoMaFrag() ;
         getSupportFragmentManager().beginTransaction().add(R.id.container ,frag).commit();
     }

@@ -49,6 +49,7 @@ public class PaoMaDengView extends SurfaceView {
                 String text = ads[index];
                 while (isRun) {
                     if(!isPause){
+                        Log.d(App.TAG, "paomadeng 1 isPause:"+isPause);
                         float textLength = paint.measureText(text);
                         if (startX <= -textLength) {
                             index++;
@@ -63,10 +64,13 @@ public class PaoMaDengView extends SurfaceView {
                                 canvas.drawColor(Color.WHITE);
                                 canvas.drawText(text, startX, 50, paint);
                                 startX -= 5;
+                                Log.d(App.TAG, "paomadeng 2 isPause:"+isPause);
+
                                 holder.unlockCanvasAndPost(canvas);
                                 Thread.currentThread().sleep(5);
                             }
                             }catch (Exception e){
+                                Log.d(App.TAG, "paomadeng 3 isPause:"+e.toString());
                             }
                         }
                 }
