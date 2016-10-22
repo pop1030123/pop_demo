@@ -28,6 +28,7 @@
 
         <activity android:name=".activity.MultiRoundImageAct" android:screenOrientation="portrait"/>
         <activity android:name=".activity.PaoMaDengAct" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BezierCurveAct" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

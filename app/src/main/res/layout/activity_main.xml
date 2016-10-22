@@ -16,4 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="跑马灯效果"/>
+
+    <Button
+        android:id="@+id/bezier_curve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="贝塞尔曲线"/>
 </LinearLayout>
