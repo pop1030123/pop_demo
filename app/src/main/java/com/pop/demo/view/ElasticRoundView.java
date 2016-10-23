@@ -64,14 +64,14 @@ public class ElasticRoundView extends View {
 
         mCenterX = displayWidth / 2;
         mCenterY = displayHeight / 2;
-        mCenterRadius = density * 25;
+        mCenterRadius = density * 50;
         mStartRadius = mCenterRadius;
 
         mPath = new Path();
         mPaint = new Paint();
         mPaint.setColor(Color.parseColor("#ff5777"));
         mPaint.setAntiAlias(true);//去除锯齿
-        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setStyle(Paint.Style.STROKE);
 
         mMovingX = mCenterX;
         mMovingY = mCenterY;
