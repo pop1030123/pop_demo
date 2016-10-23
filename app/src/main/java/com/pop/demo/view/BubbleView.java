@@ -17,12 +17,10 @@ import android.view.View;
 public class BubbleView extends View {
 
     private static final String TAG = "BubbleView";
-    //变化因子，用于设置拖动距离与半径变化的关系
-    private final int CHANGE_FACTOR = 8;
 
     // 变化因子 ,可以改变对话框的宽度，数值越大，宽度越宽
-    private static final int BUBBLE_FACTOR = 150 ;
-    private static final int BUBBLE_SIZE =250 ;
+    private static final int BUBBLE_FACTOR = 100 ;
+    private static final int BUBBLE_SIZE =200 ;
 
     private int density;
     private int displayWidth;
@@ -85,20 +83,31 @@ public class BubbleView extends View {
         float y = Math.abs(mMovingY - mCenterY) ;
         float dis = BUBBLE_FACTOR/2 ;
 
+        float flag =  (mMovingX - mCenterX)/(mMovingY - mCenterY) ;
+
         float diff_x = dis*y / m ;
         float diff_y = dis*x / m ;
-
-        // 计算x1 ,y1 ;
-        float x1 = mCenterX - diff_x ;
-        float y1 = mCenterY - diff_y ;
-        // 计算x2 ,y2 ;
-        float x2 = mCenterX + diff_x ;
-        float y2 = mCenterY + diff_y ;
-        Log.d(TAG ,"x1,y1:"+x1+","+y1) ;
-        Log.d(TAG ,"x2,y2:"+x2+","+y2) ;
-        Log.d(TAG ,"Cx,Cy:"+mCenterX+","+mCenterY) ;
-        Log.d(TAG ,"Mx,My:"+mMovingX+","+mMovingY) ;
-//        Log.d(TAG ,"x:"+x+":y:"+y) ;
+        float x1 ,y1 ,x2 ,y2 ;
+        if(flag > 0){
+            // 计算x1 ,y1 ;
+            x1 = mCenterX - diff_x ;
+            y1 = mCenterY + diff_y ;
+            // 计算x2 ,y2 ;
+            x2 = mCenterX + diff_x ;
+            y2 = mCenterY - diff_y ;
+        }else{
+            // 计算x1 ,y1 ;
+            x1 = mCenterX + diff_x ;
+            y1 = mCenterY + diff_y ;
+            // 计算x2 ,y2 ;
+            x2 = mCenterX - diff_x ;
+            y2 = mCenterY - diff_y ;
+        }
+//        Log.d(TAG ,"x1,y1:"+x1+","+y1) ;
+//        Log.d(TAG ,"x2,y2:"+x2+","+y2) ;
+//        Log.d(TAG ,"Cx,Cy:"+mCenterX+","+mCenterY) ;
+//        Log.d(TAG ,"Mx,My:"+mMovingX+","+mMovingY) ;
+//        Log.d(TAG ,"flag:"+flag) ;
 
         // 画出这个三角形
         mPath.reset();
