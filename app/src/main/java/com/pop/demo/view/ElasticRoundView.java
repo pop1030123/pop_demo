@@ -81,6 +81,15 @@ public class ElasticRoundView extends View {
         updatePath();
     }
 
+    public void isFill(boolean fill){
+        if(fill){
+            mPaint.setStyle(Paint.Style.FILL);
+        }else{
+            mPaint.setStyle(Paint.Style.STROKE);
+        }
+        invalidate();
+    }
+
     //设置回归动画
     private void initAnim() {
         animator = ValueAnimator.ofFloat(1f, 0f).setDuration(1500);

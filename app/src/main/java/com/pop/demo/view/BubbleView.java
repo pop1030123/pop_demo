@@ -74,6 +74,15 @@ public class BubbleView extends View {
         updatePath();
     }
 
+    public void isFill(boolean fill){
+        if(fill){
+            mPaint.setStyle(Paint.Style.FILL);
+        }else{
+            mPaint.setStyle(Paint.Style.STROKE);
+        }
+        invalidate();
+    }
+
     //更新路径参数
     private void updatePath() {
         if (mMovingY == mCenterY || mMovingX == mCenterX)
@@ -103,11 +112,11 @@ public class BubbleView extends View {
             x2 = mCenterX - diff_x ;
             y2 = mCenterY - diff_y ;
         }
-//        Log.d(TAG ,"x1,y1:"+x1+","+y1) ;
-//        Log.d(TAG ,"x2,y2:"+x2+","+y2) ;
-//        Log.d(TAG ,"Cx,Cy:"+mCenterX+","+mCenterY) ;
-//        Log.d(TAG ,"Mx,My:"+mMovingX+","+mMovingY) ;
-//        Log.d(TAG ,"flag:"+flag) ;
+        Log.d(TAG ,"x1,y1:"+x1+","+y1) ;
+        Log.d(TAG ,"x2,y2:"+x2+","+y2) ;
+        Log.d(TAG ,"Cx,Cy:"+mCenterX+","+mCenterY) ;
+        Log.d(TAG ,"Mx,My:"+mMovingX+","+mMovingY) ;
+        Log.d(TAG ,"flag:"+flag) ;
 
         // 画出这个三角形
         mPath.reset();
