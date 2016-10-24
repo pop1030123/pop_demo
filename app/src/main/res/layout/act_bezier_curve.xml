@@ -23,6 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="是否填充"/>
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试"/>
     </LinearLayout>
 
     <com.pop.demo.view.ElasticRoundView
@@ -32,6 +37,10 @@
 
     <com.pop.demo.view.BubbleView
         android:id="@+id/view_triangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.pop.demo.view.BezierTestView
+        android:id="@+id/view_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </LinearLayout>

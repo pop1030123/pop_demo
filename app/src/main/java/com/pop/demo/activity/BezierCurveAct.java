@@ -7,8 +7,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.pop.demo.R;
+import com.pop.demo.view.BezierTestView;
 import com.pop.demo.view.BubbleView;
 import com.pop.demo.view.ElasticRoundView;
+
+import static android.view.View.GONE;
 
 /**
  * Created by pengfu on 16/10/22.
@@ -21,6 +24,7 @@ public class BezierCurveAct extends Activity implements View.OnClickListener, Co
 
     private BubbleView mBubbleView ;
     private ElasticRoundView mElasticRoundView ;
+    private BezierTestView mBezierTestView ;
     private CheckBox mCheckBox ;
 
     @Override
@@ -30,9 +34,11 @@ public class BezierCurveAct extends Activity implements View.OnClickListener, Co
 
         findViewById(R.id.btn_bezier).setOnClickListener(this);
         findViewById(R.id.btn_triangle).setOnClickListener(this);
+        findViewById(R.id.btn_test).setOnClickListener(this);
 
         mElasticRoundView = (ElasticRoundView)findViewById(R.id.view_bezier) ;
         mBubbleView = (BubbleView)findViewById(R.id.view_triangle) ;
+        mBezierTestView = (BezierTestView)findViewById(R.id.view_test) ;
 
         mCheckBox = (CheckBox)findViewById(R.id.checkbox) ;
         mCheckBox.setOnCheckedChangeListener(this);
@@ -43,11 +49,18 @@ public class BezierCurveAct extends Activity implements View.OnClickListener, Co
         switch (v.getId()){
             case R.id.btn_bezier:
                 mElasticRoundView.setVisibility(View.VISIBLE);
-                mBubbleView.setVisibility(View.GONE);
+                mBubbleView.setVisibility(GONE);
+                mBezierTestView.setVisibility(GONE);
                 break ;
             case R.id.btn_triangle:
-                mElasticRoundView.setVisibility(View.GONE);
+                mElasticRoundView.setVisibility(GONE);
                 mBubbleView.setVisibility(View.VISIBLE);
+                mBezierTestView.setVisibility(GONE);
+                break ;
+            case R.id.btn_test:
+                mElasticRoundView.setVisibility(GONE);
+                mBubbleView.setVisibility(GONE);
+                mBezierTestView.setVisibility(View.VISIBLE);
                 break ;
         }
     }
