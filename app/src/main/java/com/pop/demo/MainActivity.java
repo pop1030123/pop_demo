@@ -8,6 +8,7 @@ import android.view.View;
 import com.pop.demo.activity.BezierCurveAct;
 import com.pop.demo.activity.MultiRoundImageAct;
 import com.pop.demo.activity.PaoMaDengAct;
+import com.pop.demo.activity.TimeTickAct;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -18,6 +19,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.show_mriv).setOnClickListener(this);
         findViewById(R.id.pao_ma_d).setOnClickListener(this);
         findViewById(R.id.bezier_curve).setOnClickListener(this);
+        findViewById(R.id.time_tick).setOnClickListener(this);
     }
 
     @Override
@@ -37,6 +39,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent toBezier = new Intent() ;
                 toBezier.setClass(this , BezierCurveAct.class) ;
                 startActivity(toBezier);
+                break ;
+            case R.id.time_tick:
+                Intent toTimeTick = new Intent() ;
+                toTimeTick.setClass(this , TimeTickAct.class) ;
+                startActivity(toTimeTick);
                 break ;
         }
     }

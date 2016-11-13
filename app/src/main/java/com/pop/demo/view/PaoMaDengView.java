@@ -79,7 +79,7 @@ public class PaoMaDengView extends SurfaceView {
     }
 
     public void stop() {
-        Log.d(App.TAG, "paomadeng stop.");
+        Log.d(App.TAG, "paomadeng cancel.");
         isRun = false;
     }
 
