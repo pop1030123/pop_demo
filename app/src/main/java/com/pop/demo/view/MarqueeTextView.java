@@ -42,7 +42,7 @@ public class MarqueeTextView extends TextView {
         mText = text ;
         mTextWidth = mTextPaint.measureText(text) ;
         Paint.FontMetrics fm = mTextPaint.getFontMetrics() ;
-        mTextY = fm.bottom - fm.top;
+        mTextY = fm.leading - fm.top;
         invalidate();
     }
 

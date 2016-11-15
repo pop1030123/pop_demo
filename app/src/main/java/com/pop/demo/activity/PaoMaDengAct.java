@@ -28,7 +28,7 @@ public class PaoMaDengAct extends Activity {
         setContentView(R.layout.act_pao_ma_deng);
 
         mMarqueeTextView = (MarqueeTextView)findViewById(R.id.marquee_view) ;
-        mMarqueeTextView.setText("abcdef");
+        mMarqueeTextView.setText("abcdefg");
     }
 
 }
