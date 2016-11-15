@@ -1,5 +1,6 @@
 package com.pop.demo.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -10,13 +11,15 @@ import android.widget.ScrollView;
 import com.pop.demo.App;
 import com.pop.demo.R;
 import com.pop.demo.fragment.PaoMaFrag;
+import com.pop.demo.view.MarqueeTextView;
 
 /**
  * Created by pengfu on 16/2/23.
  */
-public class PaoMaDengAct extends FragmentActivity implements View.OnTouchListener {
+public class PaoMaDengAct extends Activity {
 
-    private PaoMaFrag frag ;
+
+    private MarqueeTextView mMarqueeTextView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +27,8 @@ public class PaoMaDengAct extends FragmentActivity implements View.OnTouchListen
         Log.d(App.TAG ,"onCreate");
         setContentView(R.layout.act_pao_ma_deng);
 
-        ScrollView sv = (ScrollView) findViewById(R.id.scrollView);
-        sv.setOnTouchListener(this);
-
-        frag = new PaoMaFrag() ;
-        getSupportFragmentManager().beginTransaction().add(R.id.container ,frag).commit();
+        mMarqueeTextView = (MarqueeTextView)findViewById(R.id.marquee_view) ;
+        mMarqueeTextView.setText("abcdef");
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        Log.d(App.TAG ,"onTouch:"+event.getAction());
-        frag.updateStatus(event.getAction());
-        return false;
-    }
 }
