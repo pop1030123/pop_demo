@@ -27,7 +27,7 @@
         </activity>
 
         <activity android:name=".activity.MultiRoundImageAct" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.PaoMaDengAct" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BarrageAct" android:screenOrientation="portrait"/>
         <activity android:name=".activity.BezierCurveAct" android:screenOrientation="portrait"/>
         <activity android:name=".activity.TimeTickAct" android:screenOrientation="portrait"/>
     </application>

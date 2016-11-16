@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.pop.demo.activity.BezierCurveAct;
 import com.pop.demo.activity.MultiRoundImageAct;
-import com.pop.demo.activity.PaoMaDengAct;
+import com.pop.demo.activity.BarrageAct;
 import com.pop.demo.activity.TimeTickAct;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -17,7 +17,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.show_mriv).setOnClickListener(this);
-        findViewById(R.id.pao_ma_d).setOnClickListener(this);
+        findViewById(R.id.barrage).setOnClickListener(this);
         findViewById(R.id.bezier_curve).setOnClickListener(this);
         findViewById(R.id.time_tick).setOnClickListener(this);
     }
@@ -30,9 +30,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 toMultiRoundImage.setClass(this , MultiRoundImageAct.class) ;
                 startActivity(toMultiRoundImage);
                 break ;
-            case R.id.pao_ma_d:
+            case R.id.barrage:
                 Intent toPMD = new Intent() ;
-                toPMD.setClass(this , PaoMaDengAct.class) ;
+                toPMD.setClass(this , BarrageAct.class) ;
                 startActivity(toPMD);
                 break ;
             case R.id.bezier_curve:

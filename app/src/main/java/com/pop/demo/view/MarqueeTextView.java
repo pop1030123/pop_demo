@@ -1,17 +1,13 @@
 package com.pop.demo.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-
-import com.pop.demo.R;
 
 /**
  * Created by pengfu on 16/11/15.
@@ -43,19 +39,22 @@ public class MarqueeTextView extends TextView {
         mTextWidth = mTextPaint.measureText(text) ;
         Paint.FontMetrics fm = mTextPaint.getFontMetrics() ;
         mTextY = fm.leading - fm.top;
+        mTextX = -mTextWidth ;
+
+        Log.d(TAG ,"setText:"+getMeasuredWidth()) ;
         invalidate();
     }
 
-    int mText_X  ;
+    float mTextX;
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.d(TAG ,"onDraw:"+getWidth()+"x"+getHeight()) ;
+//        Log.d(TAG ,"onDraw:"+getWidth()+"x"+getHeight()) ;
         if(!TextUtils.isEmpty(mText)){
-            if(mText_X <= -mTextWidth ){
-                mText_X = getWidth() ;
+            if(mTextX <= -mTextWidth ){
+                mTextX = getWidth() ;
             }
-            canvas.drawText(mText ,mText_X--,mTextY,mTextPaint);
+            canvas.drawText(mText , mTextX--,mTextY,mTextPaint);
             invalidate();
         }
     }

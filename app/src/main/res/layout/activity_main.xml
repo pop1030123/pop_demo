@@ -9,13 +9,13 @@
         android:id="@+id/show_mriv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Multi Round ImageView"/>
+        android:text="圆形ImageView"/>
 
     <Button
-        android:id="@+id/pao_ma_d"
+        android:id="@+id/barrage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="跑马灯效果"/>
+        android:text="跑马灯/弹幕效果"/>
 
     <Button
         android:id="@+id/bezier_curve"

@@ -11,7 +11,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.pop.demo.App;
-import com.pop.demo.activity.PaoMaDengAct;
 
 /**
  * Created by pengfu on 16/2/23.
