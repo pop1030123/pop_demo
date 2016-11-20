@@ -1,6 +1,7 @@
 package com.pop.demo.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +9,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.pop.demo.R;
 
 /**
  * Created by pengfu on 16/11/15.
@@ -29,19 +32,24 @@ public class MarqueeTextView extends TextView {
 
     public MarqueeTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray a =  context.obtainStyledAttributes(attrs, R.styleable.MarqueeTextView);
+        float textSize = a.getDimensionPixelSize(R.styleable.MarqueeTextView_textSize ,22) ;
+        Log.d(TAG ,"textSize:"+textSize) ;
         mTextPaint = new Paint() ;
         mTextPaint.setColor(Color.RED);
-        mTextPaint.setTextSize(42);
+        mTextPaint.setTextSize(textSize);
     }
 
     public void setText(String text){
         mText = text ;
         mTextWidth = mTextPaint.measureText(text) ;
         Paint.FontMetrics fm = mTextPaint.getFontMetrics() ;
-        mTextY = fm.leading - fm.top;
+//        mTextY = fm.leading - fm.top;
+        mTextY = getLayoutParams().height - fm.descent;
         mTextX = -mTextWidth ;
 
-        Log.d(TAG ,"setText:"+getMeasuredWidth()) ;
+        Log.d(TAG ,"setText:"+fm.leading+":top:"+fm.top+":descent:"+fm.descent+":mTextY:"+mTextY+"::"+getLayoutParams().height) ;
         invalidate();
     }
 

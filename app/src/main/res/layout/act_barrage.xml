@@ -9,8 +9,21 @@
     <com.pop.demo.view.MarqueeTextView
         android:id="@+id/marquee_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        app:textSize="30sp"
         android:background="#0f0"/>
+
+
+    <TextView
+        android:id="@+id/flip_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f00"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:ellipsize="marquee"
+        android:text="abcdefg"/>
 
 
 </LinearLayout>

@@ -3,6 +3,6 @@
     <declare-styleable name="MarqueeTextView">
         <attr name="text" format="integer|string" />
         <attr name="textColor" format="integer" />
-        <attr name="textSize" format="integer" />
+        <attr name="textSize" format="dimension" />
     </declare-styleable>
 </resources>
