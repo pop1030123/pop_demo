@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.pop.demo.activity.BezierCurveAct;
+import com.pop.demo.activity.EditTextAct;
 import com.pop.demo.activity.MultiRoundImageAct;
 import com.pop.demo.activity.BarrageAct;
 import com.pop.demo.activity.TimeTickAct;
@@ -20,6 +21,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.barrage).setOnClickListener(this);
         findViewById(R.id.bezier_curve).setOnClickListener(this);
         findViewById(R.id.time_tick).setOnClickListener(this);
+        findViewById(R.id.edit_text_test).setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +46,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent toTimeTick = new Intent() ;
                 toTimeTick.setClass(this , TimeTickAct.class) ;
                 startActivity(toTimeTick);
+                break ;
+            case R.id.edit_text_test:
+                Intent toEditTest = new Intent() ;
+                toEditTest.setClass(this , EditTextAct.class) ;
+                startActivity(toEditTest);
                 break ;
         }
     }

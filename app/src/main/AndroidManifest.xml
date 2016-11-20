@@ -30,6 +30,8 @@
         <activity android:name=".activity.BarrageAct" android:screenOrientation="portrait"/>
         <activity android:name=".activity.BezierCurveAct" android:screenOrientation="portrait"/>
         <activity android:name=".activity.TimeTickAct" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.EditTextAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
 
 </manifest>
