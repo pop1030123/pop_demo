@@ -10,12 +10,12 @@
     <application
         android:allowBackup="true"
         android:name=".App"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity_"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
@@ -30,6 +30,7 @@
         <activity android:name=".activity.BarrageAct" android:screenOrientation="portrait"/>
         <activity android:name=".activity.BezierCurveAct" android:screenOrientation="portrait"/>
         <activity android:name=".activity.TimeTickAct" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CustomViewPagerAct_" android:screenOrientation="portrait"/>
         <activity android:name=".activity.EditTextAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>

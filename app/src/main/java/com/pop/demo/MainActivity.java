@@ -6,22 +6,27 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.pop.demo.activity.BezierCurveAct;
+import com.pop.demo.activity.CustomViewPagerAct;
+import com.pop.demo.activity.CustomViewPagerAct_;
 import com.pop.demo.activity.EditTextAct;
 import com.pop.demo.activity.MultiRoundImageAct;
 import com.pop.demo.activity.BarrageAct;
 import com.pop.demo.activity.TimeTickAct;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+
+@EActivity(R.layout.activity_main)
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    @AfterViews
+    void afterViews(){
         findViewById(R.id.show_mriv).setOnClickListener(this);
         findViewById(R.id.barrage).setOnClickListener(this);
         findViewById(R.id.bezier_curve).setOnClickListener(this);
         findViewById(R.id.time_tick).setOnClickListener(this);
         findViewById(R.id.edit_text_test).setOnClickListener(this);
+        findViewById(R.id.custom_view_pager).setOnClickListener(this);
     }
 
     @Override
@@ -51,6 +56,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent toEditTest = new Intent() ;
                 toEditTest.setClass(this , EditTextAct.class) ;
                 startActivity(toEditTest);
+                break ;
+            case R.id.custom_view_pager:
+                CustomViewPagerAct_.intent(this).start() ;
                 break ;
         }
     }
