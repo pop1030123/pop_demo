@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.pop.demo.R;
+import com.pop.demo.view.RotateFanPageTransformer;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -32,6 +33,7 @@ public class CustomViewPagerAct extends Activity {
     void afterViews(){
         mAdapter = new MyAdapter() ;
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setPageTransformer(true ,new RotateFanPageTransformer());
     }
 
     class MyAdapter extends PagerAdapter{
