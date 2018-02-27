@@ -45,6 +45,7 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     //private ProgressBar progressBar;
+    private int cameraPosition = 0;//0代表前置摄像头，1代表后置摄像头 ; 默认打开后置摄像头
 
     private MediaRecorder mediaRecorder;
     private Camera camera;
@@ -126,10 +127,12 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
             freeCameraResource();
         }
         try {
-            if (checkCameraFacing(Camera.CameraInfo.CAMERA_FACING_FRONT)) {
-                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);//TODO 默认打开前置摄像头
-            } else if (checkCameraFacing(Camera.CameraInfo.CAMERA_FACING_BACK)) {
+            if (checkCameraFacing(Camera.CameraInfo.CAMERA_FACING_BACK)) {
                 camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+                cameraPosition = 1 ;
+            }else if (checkCameraFacing(Camera.CameraInfo.CAMERA_FACING_FRONT)) {
+                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+                cameraPosition = 0 ;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,7 +214,7 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
         Camera.Size best = null;
         for (Camera.Size s : previewSizes) {
             tmp = Math.abs(((float) s.height / (float) s.width) - ratio);
-            Log.e(LOG_TAG, "setPreviewSize: width:" + s.width + "...height:" + s.height);
+//            Log.e(LOG_TAG, "setPreviewSize: width:" + s.width + "...height:" + s.height);
 //            LogUtil.e(LOG_TAG,"tmp:" + tmp);
             if (tmp < minDiff) {
                 minDiff = tmp;
@@ -269,7 +272,7 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
         Camera.Size best = null;
         for (Camera.Size s : previewSizes) {
             tmp = Math.abs(((float) s.height / (float) s.width) - ratio);
-            Log.e(LOG_TAG, "setVideoSize: width:" + s.width + "...height:" + s.height);
+//            Log.e(LOG_TAG, "setVideoSize: width:" + s.width + "...height:" + s.height);
             if (tmp < minDiff) {
                 minDiff = tmp;
                 best = s;
@@ -335,7 +338,7 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
         mediaRecorder.setAudioEncoder(AudioEncoder.AMR_NB);//音频格式
         mediaRecorder.setVideoSize(mWidth, mHeight);//设置分辨率
 //        mediaRecorder.setVideoFrameRate(25);//TODO 设置每秒帧数 这个设置有可能会出问题，有的手机不支持这种帧率就会录制失败，这里使用默认的帧率，当然视频的大小肯定会受影响
-        Log.d(LOG_TAG,"手机支持的最大像素supportedPictureSizes===="+sizePicture);
+        Log.d(LOG_TAG, "手机支持的最大像素supportedPictureSizes====" + sizePicture);
         if (sizePicture < 3000000) {//这里设置可以调整清晰度
             mediaRecorder.setVideoEncodingBitRate(3 * 1024 * 512);
         } else if (sizePicture <= 5000000) {
@@ -389,6 +392,67 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
                 mediaRecorder.release();
             }
             freeCameraResource();
+        }
+    }
+
+    public void switchCamera() {
+        int cameraCount = 0;
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        cameraCount = Camera.getNumberOfCameras();//得到摄像头的个数
+
+        for (int i = 0; i < cameraCount; i++) {
+
+            Camera.getCameraInfo(i, cameraInfo);//得到每一个摄像头的信息
+            if (cameraPosition == 1) {
+                //现在是后置，变更为前置
+                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {//代表摄像头的方位，CAMERA_FACING_FRONT前置      CAMERA_FACING_BACK后置
+
+                    freeCameraResource();
+//                    camera.stopPreview();//停掉原来摄像头的预览
+//                    camera.release();//释放资源
+//                    camera = null;//取消原来摄像头
+                    camera = Camera.open(i);//打开当前选中的摄像头
+                    try {
+                        setCameraParams();
+                        camera.setDisplayOrientation(90);
+//                        camera.setPreviewDisplay(surfaceHolder);
+//                        camera.startPreview();
+//                        camera.unlock();
+
+
+                        camera.setPreviewDisplay(surfaceHolder);//通过surfaceview显示取景画面
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    camera.startPreview();//开始预览
+                    camera.unlock();
+                    cameraPosition = 0;
+                    break;
+                }
+            } else {
+                //现在是前置， 变更为后置
+                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {//代表摄像头的方位，CAMERA_FACING_FRONT前置      CAMERA_FACING_BACK后置
+                    freeCameraResource();
+//                    camera.stopPreview();//停掉原来摄像头的预览
+//                    camera.release();//释放资源
+//                    camera = null;//取消原来摄像头
+                    camera = Camera.open(i);//打开当前选中的摄像头
+                    try {
+                        setCameraParams();
+                        camera.setDisplayOrientation(90);
+                        camera.setPreviewDisplay(surfaceHolder);//通过surfaceview显示取景画面
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    camera.startPreview();//开始预览
+                    camera.unlock();
+                    cameraPosition = 1;
+                    break;
+                }
+            }
+
         }
     }
 

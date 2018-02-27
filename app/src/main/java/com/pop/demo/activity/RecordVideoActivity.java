@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class RecordVideoActivity extends Activity implements View.OnClickListene
     private static final int RECORD_FINISH = 101;
 
     private MovieRecorderView movieRecorderView;
+    private ImageView switchCamera ;
     private Button buttonShoot;
     private RelativeLayout rlBottomRoot;
     private ProgressBar progressVideo;
@@ -111,6 +113,9 @@ public class RecordVideoActivity extends Activity implements View.OnClickListene
         textViewCountDown.setText("00:00");
         textViewUpToCancel = (TextView) findViewById(R.id.textView_up_to_cancel);
         textViewReleaseToCancel = (TextView) findViewById(R.id.textView_release_to_cancel);
+
+        switchCamera = (ImageView) findViewById(R.id.switch_camera);
+        switchCamera.setOnClickListener(this);
 
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
         int width = dm.widthPixels;
@@ -279,11 +284,20 @@ public class RecordVideoActivity extends Activity implements View.OnClickListene
     }
 
     @Override
+    public void onBackPressed() {
+        movieRecorderView.stop();
+        super.onBackPressed();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title_left:
                 finish();
                 break;
+            case R.id.switch_camera:
+                movieRecorderView.switchCamera();
+                break ;
         }
     }
 
