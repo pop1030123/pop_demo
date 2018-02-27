@@ -22,10 +22,9 @@ import java.util.List;
 public class ListDemoAct extends Activity {
 
 
+    private RecyclerView mListView;
 
-    private RecyclerView mListView ;
-
-    private ListAdapter mListAdapter ;
+    private ListAdapter mListAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,35 +35,33 @@ public class ListDemoAct extends Activity {
         mListView = (RecyclerView) findViewById(R.id.list);
 
 
-        List<String> data = new ArrayList<>() ;
-        for (int i=0 ; i< 10 ; i++){
-            data.add(""+i) ;
+        List<String> data = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            data.add("" + i);
         }
 
 
-        mListAdapter = new ListAdapter(data) ;
+        mListAdapter = new ListAdapter(data);
 
-        mListView.setLayoutManager(new GridLayoutManager(this ,4));
+        mListView.setLayoutManager(new GridLayoutManager(this, 4));
 
         mListView.setAdapter(mListAdapter);
 
     }
 
 
+    class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 
-    class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
-
-
-        private List<String> mDataList ;
+        private List<String> mDataList;
 
         public ListAdapter(List<String> data) {
-            mDataList = data ;
+            mDataList = data;
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View rootView = LayoutInflater.from(ListDemoAct.this).inflate(R.layout.item_list ,null ,false) ;
+            View rootView = LayoutInflater.from(ListDemoAct.this).inflate(R.layout.item_list, null, false);
             return new ViewHolder(rootView);
         }
 
@@ -79,18 +76,16 @@ public class ListDemoAct extends Activity {
         }
 
 
-
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView mTextView ;
+            private TextView mTextView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                mTextView  = (TextView) itemView.findViewById(R.id.text);
+                mTextView = (TextView) itemView.findViewById(R.id.text);
             }
         }
     }
-
 
 
 }
