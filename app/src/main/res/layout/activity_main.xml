@@ -40,4 +40,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="自定义ViewPager"/>
+    <Button
+        android:id="@+id/wechat_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="微信小视频"/>
+    <Button
+        android:id="@+id/list_demo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="列表测试"/>
 </LinearLayout>

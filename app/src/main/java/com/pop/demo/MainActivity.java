@@ -9,9 +9,11 @@ import com.pop.demo.activity.BezierCurveAct;
 import com.pop.demo.activity.CustomViewPagerAct;
 import com.pop.demo.activity.CustomViewPagerAct_;
 import com.pop.demo.activity.EditTextAct;
+import com.pop.demo.activity.ListDemoAct;
 import com.pop.demo.activity.MultiRoundImageAct;
 import com.pop.demo.activity.BarrageAct;
 import com.pop.demo.activity.TimeTickAct;
+import com.pop.demo.wechat.fyy.shortvideo.FirstActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -27,6 +29,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.time_tick).setOnClickListener(this);
         findViewById(R.id.edit_text_test).setOnClickListener(this);
         findViewById(R.id.custom_view_pager).setOnClickListener(this);
+        findViewById(R.id.wechat_video).setOnClickListener(this);
+        findViewById(R.id.list_demo).setOnClickListener(this);
     }
 
     @Override
@@ -59,6 +63,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break ;
             case R.id.custom_view_pager:
                 CustomViewPagerAct_.intent(this).start() ;
+                break ;
+            case R.id.wechat_video:
+                Intent toWechatTest = new Intent() ;
+                toWechatTest.setClass(this , FirstActivity.class) ;
+                startActivity(toWechatTest);
+                break ;
+            case R.id.list_demo:
+                Intent toListDemo = new Intent() ;
+                toListDemo.setClass(this , ListDemoAct.class) ;
+                startActivity(toListDemo);
                 break ;
         }
     }
