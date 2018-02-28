@@ -180,6 +180,7 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
             }
 //            LogUtil.e(LOG_TAG,"手机支持的最大像素supportedPictureSizes===="+sizePicture);
             setPreviewSize(params);
+            params.setRotation(90);
             camera.setParameters(params);
         }
     }
@@ -346,7 +347,15 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
         } else {
             mediaRecorder.setVideoEncodingBitRate(1 * 1024 * 512);
         }
-        mediaRecorder.setOrientationHint(270);//输出旋转90度，保持竖屏录制
+
+        if(mCameraPosition == 1){
+            // 后置摄像头旋转90度
+            mediaRecorder.setOrientationHint(90);
+        }else{
+            // 前置摄像头旋转270度
+            mediaRecorder.setOrientationHint(270);
+        }
+
         mediaRecorder.setVideoEncoder(VideoEncoder.H264);//视频录制格式
         //mediaRecorder.setMaxDuration(Constant.MAXVEDIOTIME * 1000);
         mediaRecorder.setOutputFile(recordFile.getAbsolutePath());
