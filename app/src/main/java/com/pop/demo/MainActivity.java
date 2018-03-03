@@ -16,7 +16,9 @@ import com.pop.demo.activity.ListDemoAct;
 import com.pop.demo.activity.MultiRoundImageAct;
 import com.pop.demo.activity.BarrageAct;
 import com.pop.demo.activity.RecordVideoActivity;
+import com.pop.demo.activity.SystemCameraAct;
 import com.pop.demo.activity.TimeTickAct;
+import com.pop.demo.util.PermissionHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -28,7 +30,10 @@ import java.util.List;
 public class MainActivity extends Activity implements View.OnClickListener {
 
     @AfterViews
-    void afterViews(){
+    void afterViews() {
+
+        mPermissionHelper = new PermissionHelper(this);
+
         findViewById(R.id.show_mriv).setOnClickListener(this);
         findViewById(R.id.barrage).setOnClickListener(this);
         findViewById(R.id.bezier_curve).setOnClickListener(this);
@@ -36,51 +41,66 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.edit_text_test).setOnClickListener(this);
         findViewById(R.id.custom_view_pager).setOnClickListener(this);
         findViewById(R.id.wechat_video).setOnClickListener(this);
+        findViewById(R.id.system_camera).setOnClickListener(this);
         findViewById(R.id.list_demo).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.show_mriv:
-                Intent toMultiRoundImage = new Intent() ;
-                toMultiRoundImage.setClass(this , MultiRoundImageAct.class) ;
+                Intent toMultiRoundImage = new Intent();
+                toMultiRoundImage.setClass(this, MultiRoundImageAct.class);
                 startActivity(toMultiRoundImage);
-                break ;
+                break;
             case R.id.barrage:
-                Intent toPMD = new Intent() ;
-                toPMD.setClass(this , BarrageAct.class) ;
+                Intent toPMD = new Intent();
+                toPMD.setClass(this, BarrageAct.class);
                 startActivity(toPMD);
-                break ;
+                break;
             case R.id.bezier_curve:
-                Intent toBezier = new Intent() ;
-                toBezier.setClass(this , BezierCurveAct.class) ;
+                Intent toBezier = new Intent();
+                toBezier.setClass(this, BezierCurveAct.class);
                 startActivity(toBezier);
-                break ;
+                break;
             case R.id.time_tick:
-                Intent toTimeTick = new Intent() ;
-                toTimeTick.setClass(this , TimeTickAct.class) ;
+                Intent toTimeTick = new Intent();
+                toTimeTick.setClass(this, TimeTickAct.class);
                 startActivity(toTimeTick);
-                break ;
+                break;
             case R.id.edit_text_test:
-                Intent toEditTest = new Intent() ;
-                toEditTest.setClass(this , EditTextAct.class) ;
+                Intent toEditTest = new Intent();
+                toEditTest.setClass(this, EditTextAct.class);
                 startActivity(toEditTest);
-                break ;
+                break;
             case R.id.custom_view_pager:
-                CustomViewPagerAct_.intent(this).start() ;
-                break ;
+                CustomViewPagerAct_.intent(this).start();
+                break;
             case R.id.wechat_video:
                 checkCameraPermission();
-                break ;
+                break;
+            case R.id.system_camera:
+                mPermissionHelper.requestPermissions("请授予权限", new PermissionHelper.PermissionListener() {
+                    @Override
+                    public void doAfterGrand(String... permission) {
+                        Intent toSystemCamera = new Intent();
+                        toSystemCamera.setClass(MainActivity.this, SystemCameraAct.class);
+                        startActivity(toSystemCamera);
+                    }
+
+                    @Override
+                    public void doAfterDenied(String... permission) {
+                        Toast.makeText(MainActivity.this, "请授权,否则无法拍摄.", Toast.LENGTH_SHORT).show();
+                    }
+                }, VIDEO_PERMISSION);
+                break;
             case R.id.list_demo:
-                Intent toListDemo = new Intent() ;
-                toListDemo.setClass(this , ListDemoAct.class) ;
+                Intent toListDemo = new Intent();
+                toListDemo.setClass(this, ListDemoAct.class);
                 startActivity(toListDemo);
-                break ;
+                break;
         }
     }
-
 
     //视频录制需要的权限(相机，录音，外部存储)
     private String[] VIDEO_PERMISSION = {
@@ -112,29 +132,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+
+    private PermissionHelper mPermissionHelper;
+
     private static final int REQUEST_CAMERA = 0;
+    private static final int REQUEST_SYSTEM_CAMERA = 1;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_CAMERA) {
-            boolean flag = false;
-            for (int i = 0; i < grantResults.length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    flag = true;
-                } else {
-                    flag = false;
-                    break;
+        switch (requestCode) {
+            case REQUEST_CAMERA:
+                boolean flag = false;
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        flag = true;
+                    } else {
+                        flag = false;
+                        break;
+                    }
                 }
-            }
-            if (flag) {
-                Toast.makeText(this, "已授权", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, RecordVideoActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                if (flag) {
+                    Toast.makeText(this, "已授权", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, RecordVideoActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                mPermissionHelper.handleRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

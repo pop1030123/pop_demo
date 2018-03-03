@@ -46,6 +46,11 @@
         android:layout_height="wrap_content"
         android:text="微信小视频"/>
     <Button
+        android:id="@+id/system_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统相机"/>
+    <Button
         android:id="@+id/list_demo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

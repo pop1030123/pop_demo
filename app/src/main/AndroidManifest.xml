@@ -25,7 +25,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -38,6 +37,8 @@
         <activity android:name=".activity.CustomViewPagerAct_" android:screenOrientation="portrait"/>
         <activity android:name=".activity.RecordVideoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.VideoPreviewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SystemCameraAct" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SystemVideoViewAct" android:screenOrientation="portrait"/>
         <activity android:name=".activity.EditTextAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
