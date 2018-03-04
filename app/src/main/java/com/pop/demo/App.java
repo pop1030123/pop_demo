@@ -28,9 +28,18 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         DisplayMetrics dm = getResources().getDisplayMetrics();
         SCREEN_WIDTH = dm.widthPixels;
         SCREEN_HEIGHT = dm.heightPixels;
         SCREEN_DENSITY = dm.density;
+    }
+
+
+    private static App instance;
+
+
+    public static synchronized App getInstance() {
+        return instance;
     }
 }

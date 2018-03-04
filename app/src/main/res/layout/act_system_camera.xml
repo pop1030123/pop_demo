@@ -10,9 +10,15 @@
         android:text="系统相机拍摄"/>
 
 
-
     <TextView
         android:id="@+id/tv_data"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="历史数据"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_media_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#aaa"/>
 </LinearLayout>

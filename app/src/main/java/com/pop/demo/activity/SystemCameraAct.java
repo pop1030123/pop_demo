@@ -1,45 +1,62 @@
 package com.pop.demo.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.pop.demo.R;
+import com.pop.demo.bean.PopMedia;
+import com.pop.demo.db.DatabaseHelper;
+import com.pop.demo.util.L;
+import com.pop.demo.util.UIUtils;
+import com.pop.demo.view.SimpleSpacingItemDecoration;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by pengfu on 03/03/2018.
  */
 
-public class SystemCameraAct extends Activity implements View.OnClickListener {
+public class SystemCameraAct extends Activity implements View.OnClickListener, BaseQuickAdapter.OnItemClickListener {
 
 
     public static final int RECORD_SYSTEM_VIDEO = 1;
     private static final String TAG = SystemCameraAct.class.getSimpleName();
 
-    private TextView mDataView;
+    private RecyclerView mMediaList ;
+    private ListAdapter mMediaAdapter ;
+    private Context mContext ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this ;
         setContentView(R.layout.act_system_camera);
 
         findViewById(R.id.take_video).setOnClickListener(this);
-        mDataView = (TextView) findViewById(R.id.tv_data);
 
-        mDataView.setOnClickListener(this);
+        mMediaList = (RecyclerView) findViewById(R.id.rv_media_list);
+        mMediaAdapter = new ListAdapter(DatabaseHelper.getInstance().getPopMediaDao().queryForAll()) ;
+        mMediaList.setLayoutManager(new LinearLayoutManager(this ,LinearLayoutManager.VERTICAL ,false));
+        mMediaList.setAdapter(mMediaAdapter);
+        mMediaList.addItemDecoration(new SimpleSpacingItemDecoration(LinearLayoutManager.VERTICAL , UIUtils.dp2px(1)));
+        mMediaAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -48,17 +65,8 @@ public class SystemCameraAct extends Activity implements View.OnClickListener {
             case R.id.take_video:
                 startRecordVideo();
                 break;
-            case R.id.tv_data:
-                String path = mDataView.getText().toString();
-                if (!TextUtils.isEmpty(path)) {
-                    Intent intent = new Intent(this, SystemVideoViewAct.class);
-                    intent.putExtra("path", path);
-                    startActivity(intent);
-                }
-                break;
         }
     }
-
 
     private void startRecordVideo() {
         File file = getOutputMediaFile();
@@ -102,8 +110,40 @@ public class SystemCameraAct extends Activity implements View.OnClickListener {
             case RECORD_SYSTEM_VIDEO:
                 //录制的视频：file:///storage/emulated/0/DCIM/PopDemo/VID_20180303_223329.mp4
                 Log.d(TAG, "录制的视频：" + data.getData());
-                mDataView.setText(data.getData().toString());
+                String path = data.getData().toString() ;
+                if(!TextUtils.isEmpty(path)){
+                    String fileName = path.substring(path.lastIndexOf("/")) ;
+                    PopMedia newVideo = new PopMedia(path ,fileName) ;
+                    int count = DatabaseHelper.getInstance().getPopMediaDao().create(newVideo) ;
+                    L.d("插入popMedia:"+count+"::"+newVideo);
+                    if(count>0){
+                        mMediaAdapter.setNewData(DatabaseHelper.getInstance().getPopMediaDao().queryForAll());
+                    }
+                }
                 break;
         }
     }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Intent intent = new Intent(this, SystemVideoViewAct.class);
+        intent.putExtra("path", mMediaAdapter.getItem(position).getPath());
+        startActivity(intent);
+    }
+
+
+    class ListAdapter extends BaseQuickAdapter<PopMedia, BaseViewHolder> {
+
+
+        public ListAdapter(List<PopMedia> data) {
+            super(R.layout.item_pop_media ,data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, PopMedia item) {
+            helper.setText(R.id.tv_name ,item.getPath()) ;
+        }
+
+    }
+
 }
