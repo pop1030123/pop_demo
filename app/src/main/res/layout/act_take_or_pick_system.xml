@@ -4,28 +4,25 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/take_photo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="系统拍摄照片和导入"/>
-
-    <Button
-        android:id="@+id/take_video"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="系统相机拍摄视频"/>
-
 
     <TextView
-        android:id="@+id/tv_data"
+        android:id="@+id/tv_take"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="历史数据"/>
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="系统相机拍摄"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_media_list"
+    <TextView
+        android:id="@+id/tv_import"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#aaa"/>
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="系统相册导入"/>
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="result："/>
 </LinearLayout>

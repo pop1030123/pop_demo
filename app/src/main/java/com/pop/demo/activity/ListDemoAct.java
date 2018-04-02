@@ -1,6 +1,7 @@
 package com.pop.demo.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -41,7 +42,7 @@ public class ListDemoAct extends Activity {
         }
 
 
-        mListAdapter = new ListAdapter(data);
+        mListAdapter = new ListAdapter(this ,data);
 
         mListView.setLayoutManager(new GridLayoutManager(this, 4));
 
@@ -50,18 +51,20 @@ public class ListDemoAct extends Activity {
     }
 
 
-    class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
+    static class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 
         private List<String> mDataList;
+        private Context mContext ;
 
-        public ListAdapter(List<String> data) {
+        public ListAdapter(Context context , List<String> data) {
+            mContext = context ;
             mDataList = data;
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View rootView = LayoutInflater.from(ListDemoAct.this).inflate(R.layout.item_list, null, false);
+            View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_list, null, false);
             return new ViewHolder(rootView);
         }
 
@@ -76,7 +79,7 @@ public class ListDemoAct extends Activity {
         }
 
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        static class ViewHolder extends RecyclerView.ViewHolder {
 
             private TextView mTextView;
 

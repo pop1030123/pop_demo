@@ -50,6 +50,7 @@ public class SystemCameraAct extends Activity implements View.OnClickListener, B
         setContentView(R.layout.act_system_camera);
 
         findViewById(R.id.take_video).setOnClickListener(this);
+        findViewById(R.id.take_photo).setOnClickListener(this);
 
         mMediaList = (RecyclerView) findViewById(R.id.rv_media_list);
         mMediaAdapter = new ListAdapter(DatabaseHelper.getInstance().getPopMediaDao().queryForAll()) ;
@@ -65,6 +66,9 @@ public class SystemCameraAct extends Activity implements View.OnClickListener, B
             case R.id.take_video:
                 startRecordVideo();
                 break;
+            case R.id.take_photo:
+                startActivity(new Intent(this ,TakeOrPickSystemAct.class));
+                break ;
         }
     }
 
