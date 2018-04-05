@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -26,7 +27,9 @@ import com.pop.demo.util.UIUtils;
 import com.pop.demo.view.SimpleGridSpacingItemDecoration;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,10 +72,10 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_take:
-                mTakePictureManager.startTakeWayByCamera();
+                mTakePictureManager.startTakeWayByCamera(getOutputMediaFile());
                 break;
             case R.id.tv_import:
-                mTakePictureManager.startTakeWayByAlbum();
+                mTakePictureManager.startTakeWayByAlbum(getOutputMediaFile());
                 break;
         }
     }
@@ -90,7 +93,8 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
 
     @Override
     public void successful(boolean isTailor, File outFile, Uri fileUri) {
-        L.d("successful:outFile:"+outFile+":fileUri:"+fileUri);
+        L.d("outFile:"+outFile);
+        L.d("fileUri:"+fileUri);
         PopMedia popMedia = new PopMedia() ;
         popMedia.setFileName(outFile.getName());
         popMedia.setPath(outFile.getPath());
@@ -117,4 +121,23 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
         }
 
     }
+
+
+    private File getOutputMediaFile() {
+        if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            Toast.makeText(this, "请检查SDCard！", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory
+                (Environment.DIRECTORY_DCIM), "PopDemo");
+        if (!mediaStorageDir.exists()) {
+            mediaStorageDir.mkdirs();
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "PIC_" + timeStamp + ".jpg");
+        return mediaFile;
+    }
+
 }

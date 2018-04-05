@@ -111,14 +111,14 @@ public class TakePictureManager {
 
 
     //开始拍照
-    public void startTakeWayByCamera() {
+    public void startTakeWayByCamera(final File outputMediaFile) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //如果是6.0或6.0以上，则要申请运行时权限，这里需要申请拍照和写入SD卡的权限
             requestRuntimePermission(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                     , new PermissionListener() {
                         @Override
                         public void onGranted() {
-                            startOpenCamera();
+                            startOpenCamera(outputMediaFile);
                         }
 
                         @Override
@@ -130,19 +130,19 @@ public class TakePictureManager {
                     });
             return;
         }
-        startOpenCamera();
+        startOpenCamera(outputMediaFile);
     }
 
     //开始从图库获取
-    public void startTakeWayByAlbum() {
+    public void startTakeWayByAlbum(final File outputMediaFile) {
 
-        imgPath = generateImgePath(mContext);
+        imgPath = outputMediaFile.getPath();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //如果是6.0或6.0以上，则要申请运行时权限，这里需要申请拍照和写入SD卡的权限
             requestRuntimePermission(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, new PermissionListener() {
                 @Override
                 public void onGranted() {
-                    startAlbum();
+                    startAlbum(outputMediaFile);
                 }
 
                 @Override
@@ -155,10 +155,10 @@ public class TakePictureManager {
 
             return;
         }
-        startAlbum();
+        startAlbum(outputMediaFile);
     }
 
-    private void startAlbum() {
+    private void startAlbum(File outputMediaFile) {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 "image/*");
@@ -247,11 +247,12 @@ public class TakePictureManager {
             case CODE_ORIGINAL_PHOTO_CAMERA:
 
                 srcFile = new File(imgPath);
-                outPutFile = new File(generateImgePath(mContext));
-                outputUri = Uri.fromFile(outPutFile);
                 Uri imageContentUri = getImageContentUri(mContext, srcFile);
 
                 if (isTailor) {
+                    outPutFile = new File(generateImgePath(mContext));
+                    outputUri = Uri.fromFile(outPutFile);
+
                     statZoom(srcFile, outPutFile);
                 } else {
                     if (takeCallBacklistener != null) {
@@ -280,7 +281,7 @@ public class TakePictureManager {
                         outputUri = Uri.fromFile(srcFile);
                         //如果选择返回一个压缩后的图片
                         if (isCompressor) {
-                            temFile = outputIamge(mContext, compressImage(decodeUriAsBitmap(outputUri), 100));
+                            temFile = outputImage(mContext, compressImage(decodeUriAsBitmap(outputUri), 100));
                             outputUri = Uri.fromFile(temFile);
                         }
 
@@ -310,7 +311,7 @@ public class TakePictureManager {
 
                         //返回一个压缩后的图片
                         if (isCompressor) {
-                            temFile = outputIamge(mContext, compressImage(decodeUriAsBitmap(outputUri), 100));
+                            temFile = outputImage(mContext, compressImage(decodeUriAsBitmap(outputUri), 100));
                             outputUri = Uri.fromFile(temFile);
                         }
 
@@ -331,8 +332,8 @@ public class TakePictureManager {
 
 
     //打开相机
-    private void startOpenCamera() {
-        imgPath = generateImgePath(mContext);
+    private void startOpenCamera(File outputMediaFile) {
+        imgPath = outputMediaFile.getPath();
         File imgFile = new File(imgPath);
         Uri imgUri = null;
 
@@ -597,13 +598,13 @@ public class TakePictureManager {
     }
 
     //在自定义目录创建图片
-    private static File outputIamge(Context context, Bitmap bitmap) {
+    private File outputImage(Context context, Bitmap bitmap) {
 
-        File outputIamge = new File(generateImgePath(context));
+        File outputImage = new File(imgPath);
 
         //创建
         try {
-            outputIamge.createNewFile();
+            outputImage.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -611,7 +612,7 @@ public class TakePictureManager {
         FileOutputStream fOut = null;
 
         try {
-            fOut = new FileOutputStream(outputIamge);
+            fOut = new FileOutputStream(outputImage);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -630,7 +631,7 @@ public class TakePictureManager {
             e.printStackTrace();
         }
 
-        return outputIamge;
+        return outputImage;
     }
 
 
