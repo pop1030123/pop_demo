@@ -23,10 +23,12 @@ import com.pop.demo.bean.PopMedia;
 import com.pop.demo.util.FileUtils;
 import com.pop.demo.util.L;
 import com.pop.demo.util.TakePictureManager;
+import com.pop.demo.util.ToastUtils;
 import com.pop.demo.util.UIUtils;
 import com.pop.demo.view.SimpleGridSpacingItemDecoration;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,11 +41,11 @@ import java.util.List;
 public class TakeOrPickSystemAct extends Activity implements View.OnClickListener, TakePictureManager.takePictureCallBackListener {
 
 
-    private TakePictureManager mTakePictureManager ;
+    private TakePictureManager mTakePictureManager;
 
-    private RecyclerView rv_photos ;
+    private RecyclerView rv_photos;
 
-    private GridAdapter mGridAdapter ;
+    private GridAdapter mGridAdapter;
 
     private List<PopMedia> mediaList = new ArrayList<>();
 
@@ -52,16 +54,33 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_take_or_pick_system);
 
-        mTakePictureManager = new TakePictureManager(this) ;
+        mTakePictureManager = new TakePictureManager(this);
 
         findViewById(R.id.tv_take).setOnClickListener(this);
         findViewById(R.id.tv_import).setOnClickListener(this);
 
-        mGridAdapter = new GridAdapter(mediaList) ;
+        mGridAdapter = new GridAdapter(mediaList);
+        mGridAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.iv_delete:
+                        PopMedia popMedia = mediaList.get(position);
+                        try {
+                            boolean deleteResult = FileUtils.deleteFile(new File(popMedia.getPath()));
+                            L.d("文件delete:" + deleteResult + "::" + popMedia.getPath());
+                        } catch (IOException e) {
+                            L.e("删除文件异常：" + e);
+                        }
+                        mGridAdapter.remove(position);
+                        break;
+                }
+            }
+        });
 
-        rv_photos = findViewById(R.id.rv_photos) ;
+        rv_photos = findViewById(R.id.rv_photos);
 
-        rv_photos.setLayoutManager(new GridLayoutManager(this ,4));
+        rv_photos.setLayoutManager(new GridLayoutManager(this, 4));
         rv_photos.addItemDecoration(new SimpleGridSpacingItemDecoration(UIUtils.dp2px(5)));
         rv_photos.setAdapter(mGridAdapter);
 
@@ -83,7 +102,7 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mTakePictureManager.attachToActivityForResult(requestCode ,resultCode ,data);
+        mTakePictureManager.attachToActivityForResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -93,9 +112,9 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
 
     @Override
     public void successful(boolean isTailor, File outFile, Uri fileUri) {
-        L.d("outFile:"+outFile);
-        L.d("fileUri:"+fileUri);
-        PopMedia popMedia = new PopMedia() ;
+        L.d("outFile:" + outFile);
+        L.d("fileUri:" + fileUri);
+        PopMedia popMedia = new PopMedia();
         popMedia.setFileName(outFile.getName());
         popMedia.setPath(outFile.getPath());
         mGridAdapter.addData(popMedia);
@@ -103,7 +122,7 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
 
     @Override
     public void failed(int errorCode, List<String> deniedPermissions) {
-
+        ToastUtils.showToast("failed:" + errorCode);
     }
 
 
@@ -111,13 +130,13 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
 
 
         public GridAdapter(List<PopMedia> data) {
-            super(R.layout.item_grid_media ,data);
+            super(R.layout.item_grid_media, data);
         }
 
         @Override
         protected void convert(BaseViewHolder helper, PopMedia item) {
-
-            ImageLoader.getInstance().displayImage("file://"+item.getPath() ,(ImageView) helper.getView(R.id.iv_photo));
+            ImageLoader.getInstance().displayImage("file://" + item.getPath(), (ImageView) helper.getView(R.id.iv_photo));
+            helper.addOnClickListener(R.id.iv_delete);
         }
 
     }
