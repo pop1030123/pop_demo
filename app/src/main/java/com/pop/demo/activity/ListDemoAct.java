@@ -1,31 +1,24 @@
 package com.pop.demo.activity;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pop.demo.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.pop.demo.activity.listDemo.GridViewDemoAct;
 
 /**
  * Created by pengfu on 27/02/2018.
  */
 
-public class ListDemoAct extends Activity {
+public class ListDemoAct extends Activity implements View.OnClickListener {
 
 
-    private RecyclerView mListView;
+    private TextView tv_grid_view_demo;
 
-    private ListAdapter mListAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,62 +26,19 @@ public class ListDemoAct extends Activity {
 
         setContentView(R.layout.act_list_demo);
 
-        mListView = (RecyclerView) findViewById(R.id.list);
+        tv_grid_view_demo = (TextView) findViewById(R.id.tv_grid_view_demo);
+        tv_grid_view_demo.setOnClickListener(this);
 
-
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add("" + i);
-        }
-
-
-        mListAdapter = new ListAdapter(this ,data);
-
-        mListView.setLayoutManager(new GridLayoutManager(this, 4));
-
-        mListView.setAdapter(mListAdapter);
 
     }
 
 
-    static class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
-
-
-        private List<String> mDataList;
-        private Context mContext ;
-
-        public ListAdapter(Context context , List<String> data) {
-            mContext = context ;
-            mDataList = data;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_list, null, false);
-            return new ViewHolder(rootView);
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.mTextView.setText(mDataList.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return mDataList.size();
-        }
-
-
-        static class ViewHolder extends RecyclerView.ViewHolder {
-
-            private TextView mTextView;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                mTextView = (TextView) itemView.findViewById(R.id.text);
-            }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_grid_view_demo:
+                startActivity(new Intent(this , GridViewDemoAct.class));
+                break ;
         }
     }
-
-
 }

@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+
+    <drawable name="tv_bg_normal">#aaa</drawable>
+    <drawable name="tv_bg_press">#ddd</drawable>
+    <color name="tv_text_normal">#fff</color>
+    <color name="tv_text_press">#f00</color>
+
 </resources>
