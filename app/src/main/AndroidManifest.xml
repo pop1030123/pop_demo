@@ -43,6 +43,9 @@
             android:name=".activity.listDemo.GridViewDemoAct"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.listDemo.HiveViewDemoAct"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.BezierCurveAct"
             android:screenOrientation="portrait"/>
         <activity

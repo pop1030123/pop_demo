@@ -17,4 +17,15 @@
         android:text="普通gridView demo"
         android:textColor="@color/tv_text"
         />
+    <TextView
+        android:id="@+id/tv_hive_view_demo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/tv_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="蜂窝状RecyclerView"
+        android:textColor="@color/tv_text"
+        />
 </LinearLayout>

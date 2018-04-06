@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.pop.demo.R;
 import com.pop.demo.activity.listDemo.GridViewDemoAct;
+import com.pop.demo.activity.listDemo.HiveViewDemoAct;
 
 /**
  * Created by pengfu on 27/02/2018.
@@ -29,6 +30,8 @@ public class ListDemoAct extends Activity implements View.OnClickListener {
         tv_grid_view_demo = (TextView) findViewById(R.id.tv_grid_view_demo);
         tv_grid_view_demo.setOnClickListener(this);
 
+        findViewById(R.id.tv_hive_view_demo).setOnClickListener(this);
+
 
     }
 
@@ -38,6 +41,9 @@ public class ListDemoAct extends Activity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.tv_grid_view_demo:
                 startActivity(new Intent(this , GridViewDemoAct.class));
+                break ;
+            case R.id.tv_hive_view_demo:
+                startActivity(new Intent(this , HiveViewDemoAct.class));
                 break ;
         }
     }
