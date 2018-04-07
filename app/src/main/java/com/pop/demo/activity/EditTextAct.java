@@ -2,6 +2,7 @@ package com.pop.demo.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,35 +22,40 @@ import static android.view.View.GONE;
 public class EditTextAct extends Activity implements View.OnClickListener {
 
 
-    private View mInputLayout ;
-    private EditText mEditView ;
-    private Button mButton ;
+    private View mInputLayout;
+    private EditText mEditView;
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(App.TAG ,"onCreate");
+        Log.d(App.TAG, "onCreate");
         setContentView(R.layout.act_edit_text);
-        mInputLayout = findViewById(R.id.input_layout) ;
+        mInputLayout = findViewById(R.id.input_layout);
         mInputLayout.setOnClickListener(this);
-        mEditView = (EditText)findViewById(R.id.edit_view) ;
-        mButton = (Button)findViewById(R.id.btn_view) ;
+        mEditView = (EditText) findViewById(R.id.edit_view);
+        mButton = (Button) findViewById(R.id.btn_view);
         mButton.setOnClickListener(this);
+
+        findViewById(R.id.tv_input_edit).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.input_layout:
                 mInputLayout.setVisibility(GONE);
-                hideSoftKeyboard(this ,mEditView) ;
-                break ;
+                hideSoftKeyboard(this, mEditView);
+                break;
             case R.id.btn_view:
                 mInputLayout.setVisibility(View.VISIBLE);
                 mEditView.setFocusable(true);
                 mEditView.requestFocus();
-                showSoftKeyboard(mEditView ,this) ;
-                break ;
+                showSoftKeyboard(mEditView, this);
+                break;
+            case R.id.tv_input_edit:
+                startActivity(new Intent(this, InputEditTextCursorAct.class));
+                break;
         }
     }
 

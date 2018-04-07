@@ -67,6 +67,10 @@
             android:name=".activity.TakeOrPickSystemAct"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".view.floatingeditor.FloatEditorActivity"
+            android:theme="@style/NoTitleDialogTheme"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity
             android:name=".activity.SystemVideoViewAct"
             android:screenOrientation="portrait"/>
         <activity
@@ -74,6 +78,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
+        <activity
+            android:name=".activity.InputEditTextCursorAct"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

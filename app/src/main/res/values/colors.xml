@@ -11,4 +11,9 @@
     <color name="tv_text_normal">#fff</color>
     <color name="tv_text_press">#f00</color>
 
+
+    <color name="white">#fff</color>
+
+    <color name="orange">#ffffdc7e</color>
+
 </resources>
