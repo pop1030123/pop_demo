@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.pop.demo.activity.BezierCurveAct;
+import com.pop.demo.activity.CustomViewActivity;
 import com.pop.demo.activity.CustomViewPagerAct_;
 import com.pop.demo.activity.EditTextAct;
 import com.pop.demo.activity.ListDemoAct;
@@ -34,7 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         mPermissionHelper = new PermissionHelper(this);
 
-        findViewById(R.id.show_mriv).setOnClickListener(this);
+        findViewById(R.id.btn_custom_view).setOnClickListener(this);
         findViewById(R.id.barrage).setOnClickListener(this);
         findViewById(R.id.bezier_curve).setOnClickListener(this);
         findViewById(R.id.time_tick).setOnClickListener(this);
@@ -48,10 +49,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.show_mriv:
-                Intent toMultiRoundImage = new Intent();
-                toMultiRoundImage.setClass(this, MultiRoundImageAct.class);
-                startActivity(toMultiRoundImage);
+            case R.id.btn_custom_view:
+                Intent toCustomView = new Intent();
+                toCustomView.setClass(this, CustomViewActivity.class);
+                startActivity(toCustomView);
                 break;
             case R.id.barrage:
                 Intent toPMD = new Intent();

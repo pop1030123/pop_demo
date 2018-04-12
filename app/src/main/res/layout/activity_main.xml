@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/show_mriv"
+        android:id="@+id/btn_custom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="圆形ImageView"/>
+        android:text="自定义view"/>
 
     <Button
         android:id="@+id/barrage"

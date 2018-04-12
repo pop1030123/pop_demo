@@ -14,6 +14,7 @@
         android:layout_weight="1"
         android:background="@color/white"
         android:padding="5dp"
+        android:hint="发表评论....."
         android:textCursorDrawable="@drawable/color_cursor"/>
 
     <TextView
@@ -22,6 +23,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
+        android:textSize="14sp"
+        android:textColor="#ccc"
         android:text="发送"/>
 
 </LinearLayout>

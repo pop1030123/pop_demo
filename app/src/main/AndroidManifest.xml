@@ -37,6 +37,12 @@
             android:name=".activity.BarrageAct"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.CustomViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.customView.MovedViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.ListDemoAct"
             android:screenOrientation="portrait"/>
         <activity
