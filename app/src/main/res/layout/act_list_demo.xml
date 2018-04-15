@@ -26,6 +26,16 @@
         android:gravity="center"
         android:padding="10dp"
         android:textColor="@color/tv_text"
-        android:text="蜂窝状RecyclerView"
+        android:text="蜂窝状RecyclerView"/>
+    <TextView
+        android:id="@+id/tv_channel_mgr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/tv_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/tv_text"
+        android:text="高仿腾讯新闻频道管理页面"
         />
 </LinearLayout>

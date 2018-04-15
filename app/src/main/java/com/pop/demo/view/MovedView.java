@@ -27,6 +27,7 @@ public class MovedView extends View {
     }
 
     private float mLastX, mLastY;
+    private float mDownX, mDownY;
     private float mX, mY;
     private long downTime =0  ;
 
@@ -36,6 +37,8 @@ public class MovedView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 downTime = System.currentTimeMillis();
+                mDownX = event.getX() ;
+                mDownY = event.getY() ;
                 break;
             case MotionEvent.ACTION_MOVE:
                 mX = event.getX();
@@ -48,7 +51,7 @@ public class MovedView extends View {
                     LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) getLayoutParams();
                     lp.leftMargin += moveX;
                     lp.topMargin += moveY;
-//                    L.d("fupeng" ,"移动了:"+moveX+","+moveY);
+                    L.d("fupeng" ,"移动了:"+moveX+","+moveY);
                     // 触发布局修改.
                     requestLayout();
                 } else {
@@ -58,10 +61,13 @@ public class MovedView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 long upTime = System.currentTimeMillis() ;
-                long delta = upTime - downTime ;
+                long deltaDuration = upTime - downTime ;
+                float moveX = event.getX() - mDownX ;
+                float moveY = event.getY() - mDownY ;
 //                L.d("fupeng" ,"mLastXY:"+mLastX+","+mLastY +":delta:"+delta);
+                L.d("fupeng" ,"up: move:"+moveX+","+moveY);
                 // 300毫秒之内的就算做是点击.
-                if(delta < 300){
+                if(deltaDuration < 300){
 //                    L.d("fupeng" ,"perform click event");
                     performClick();
                 }

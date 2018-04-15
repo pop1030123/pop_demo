@@ -1,4 +1,4 @@
-package com.pop.demo.activity.listDemo;
+package com.pop.demo.activity.listDemo.hive;
 
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;

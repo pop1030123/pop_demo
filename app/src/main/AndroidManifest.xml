@@ -46,10 +46,13 @@
             android:name=".activity.ListDemoAct"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.listDemo.GridViewDemoAct"
+            android:name=".activity.listDemo.hive.GridViewDemoAct"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.listDemo.HiveViewDemoAct"
+            android:name=".activity.listDemo.hive.HiveViewDemoAct"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.listDemo.channelManage.ChannelManageActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.BezierCurveAct"

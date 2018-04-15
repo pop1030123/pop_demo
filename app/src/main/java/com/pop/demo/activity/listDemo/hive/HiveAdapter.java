@@ -1,4 +1,4 @@
-package com.pop.demo.activity.listDemo;
+package com.pop.demo.activity.listDemo.hive;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

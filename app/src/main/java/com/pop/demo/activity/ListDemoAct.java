@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pop.demo.R;
-import com.pop.demo.activity.listDemo.GridViewDemoAct;
-import com.pop.demo.activity.listDemo.HiveViewDemoAct;
+import com.pop.demo.activity.listDemo.channelManage.ChannelManageActivity;
+import com.pop.demo.activity.listDemo.hive.GridViewDemoAct;
+import com.pop.demo.activity.listDemo.hive.HiveViewDemoAct;
 
 /**
  * Created by pengfu on 27/02/2018.
@@ -31,6 +32,7 @@ public class ListDemoAct extends Activity implements View.OnClickListener {
         tv_grid_view_demo.setOnClickListener(this);
 
         findViewById(R.id.tv_hive_view_demo).setOnClickListener(this);
+        findViewById(R.id.tv_channel_mgr).setOnClickListener(this);
 
 
     }
@@ -44,6 +46,9 @@ public class ListDemoAct extends Activity implements View.OnClickListener {
                 break ;
             case R.id.tv_hive_view_demo:
                 startActivity(new Intent(this , HiveViewDemoAct.class));
+                break ;
+            case R.id.tv_channel_mgr:
+                startActivity(new Intent(this , ChannelManageActivity.class));
                 break ;
         }
     }
