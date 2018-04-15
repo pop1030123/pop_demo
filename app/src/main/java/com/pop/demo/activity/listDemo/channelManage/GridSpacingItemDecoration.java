@@ -27,10 +27,10 @@ public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
         int position = parent.getChildAdapterPosition(view);
         if (position > 0) {
             int id = parent.getAdapter().getItemViewType(position);
-            if (id == R.layout.adapter_tab) {
+            if (id == R.layout.channel_mgr_adapter_tab) {
                 tabPosition = position;
             }
-            if (id == R.layout.adapter_channel) {
+            if (id == R.layout.channel_mgr_adapter_channel) {
                 if (position <= tabPosition) {
                     position--;
                 } else {

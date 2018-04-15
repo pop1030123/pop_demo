@@ -75,11 +75,11 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(viewType, parent, false);
-        if (viewType == R.layout.adapter_channel) {
+        if (viewType == R.layout.channel_mgr_adapter_channel) {
             return new ChannelHolder(view);
-        } else if (viewType == R.layout.adapter_more_channel) {
+        } else if (viewType == R.layout.channel_mgr_adapter_more_channel) {
             return new MoreChannelHolder(view);
-        } else if (viewType == R.layout.adapter_tab) {
+        } else if (viewType == R.layout.channel_mgr_adapter_tab) {
             return new TabHolder(view);
         } else {
             return new TitleHolder(view);

@@ -10,6 +10,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.WindowManager;
 
 import com.pop.demo.R;
+import com.pop.demo.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,26 +43,26 @@ public class ChannelManageActivity extends AppCompatActivity implements ChannelA
         animator.setRemoveDuration(0);
         mRecyclerView.setItemAnimator(animator);
         ChannelBean title = new ChannelBean();
-        title.setLayoutId(R.layout.adapter_title);
+        title.setLayoutId(R.layout.channel_mgr_adapter_title);
         title.setSpanSize(4);
         mList.add(title);
         for (String bean : select) {
-            mList.add(new ChannelBean(bean, 1, R.layout.adapter_channel, true));
+            mList.add(new ChannelBean(bean, 1, R.layout.channel_mgr_adapter_channel, true));
         }
         ChannelBean tabBean = new ChannelBean();
-        tabBean.setLayoutId(R.layout.adapter_tab);
+        tabBean.setLayoutId(R.layout.channel_mgr_adapter_tab);
         tabBean.setSpanSize(4);
         mList.add(tabBean);
         List<ChannelBean> recommendList = new ArrayList<>();
         for (String bean : recommend) {
-            recommendList.add(new ChannelBean(bean, 1, R.layout.adapter_channel, true));
+            recommendList.add(new ChannelBean(bean, 1, R.layout.channel_mgr_adapter_channel, true));
         }
         List<ChannelBean> cityList = new ArrayList<>();
         for (String bean : city) {
-            cityList.add(new ChannelBean(bean, 1, R.layout.adapter_channel, false));
+            cityList.add(new ChannelBean(bean, 1, R.layout.channel_mgr_adapter_channel, false));
         }
         ChannelBean moreBean = new ChannelBean();
-        moreBean.setLayoutId(R.layout.adapter_more_channel);
+        moreBean.setLayoutId(R.layout.channel_mgr_adapter_more_channel);
         moreBean.setSpanSize(4);
         cityList.add(moreBean);
         mList.addAll(recommendList);
@@ -71,17 +72,11 @@ public class ChannelManageActivity extends AppCompatActivity implements ChannelA
         mAdapter.setRecommend(true);
         mAdapter.setOnItemRangeChangeListener(this);
         mRecyclerView.setAdapter(mAdapter);
-        WindowManager m = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        int spacing = (m.getDefaultDisplay().getWidth() - dip2px(this, 70) * 4) / 5;
+        int spacing = (UIUtils.getScreenWidth() - UIUtils.dp2px(70) * 4) / 5;
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(4,spacing,true));
         ItemDragCallback callback=new ItemDragCallback(mAdapter,2);
         ItemTouchHelper helper=new ItemTouchHelper(callback);
         helper.attachToRecyclerView(mRecyclerView);
-    }
-
-    public static int dip2px(Context context, float dpValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
     }
 
     @Override

@@ -15,23 +15,38 @@ import com.pop.demo.App;
 public class UIUtils {
 
 
-
+    /**
+     * dp/dip转换为px.
+     * @param dpValue
+     * @return
+     */
     public static int dp2px(int dpValue) {
         float scale = App.getInstance().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
-    public static int dp2px(Context context, int dpValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+    /**
+     * 获取屏幕的宽度.
+     * @return
+     */
+    public static int getScreenWidth() {
+        return  App.getInstance().getResources().getDisplayMetrics().widthPixels;
     }
 
-    public static int getScreenWidth(Context context) {
-        return context.getResources().getDisplayMetrics().widthPixels;
+    /**
+     * 另外一种方式：获取屏幕的宽度，待验证.
+     * @return
+     */
+    public static int getScreenWidth2() {
+        return  ((WindowManager)(App.getInstance().getSystemService(Context.WINDOW_SERVICE))).getDefaultDisplay().getWidth();
     }
 
-    public static int getScreenHeight(Context context) {
-        return context.getResources().getDisplayMetrics().heightPixels;
+    /**
+     * 获取屏幕的高度.
+     * @return
+     */
+    public static int getScreenHeight() {
+        return  App.getInstance().getResources().getDisplayMetrics().heightPixels;
     }
 
     public static void hideActionBar(Window window) {
