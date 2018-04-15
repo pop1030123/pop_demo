@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.pop.demo.App;
+import com.pop.demo.util.UIUtils;
 
 /**
  * Created by pengfu on 16/2/23.
@@ -44,7 +45,7 @@ public class PaoMaDengView extends SurfaceView {
             @Override
             public void run() {
                 holder = getHolder();
-                int startX = App.SCREEN_WIDTH;
+                int startX = UIUtils.getScreenWidth();
                 String text = ads[index];
                 while (isRun) {
                     if(!isPause){
@@ -54,7 +55,7 @@ public class PaoMaDengView extends SurfaceView {
                             index++;
                             index = index % 3;
                             text = ads[index];
-                            startX = App.SCREEN_WIDTH;
+                            startX = UIUtils.getScreenWidth();
                         }
                         try{
                             Canvas canvas = holder.lockCanvas();

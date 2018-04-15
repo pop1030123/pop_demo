@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.pop.demo.App;
 import com.pop.demo.R;
+import com.pop.demo.util.UIUtils;
 import com.pop.demo.view.TimeTickView;
 
 /**
@@ -24,8 +25,8 @@ public class TimeTickAct extends Activity {
         mTimeTickView = (TimeTickView)findViewById(R.id.view_time_tick) ;
 
         // 圆心
-        int x0 = App.SCREEN_WIDTH/2 ;
-        int y0 = App.SCREEN_HEIGHT/2 ;
+        int x0 = UIUtils.getScreenWidth()/2 ;
+        int y0 = UIUtils.getScreenHeight()/2 ;
         int[] center = new int[2] ;
         center[0] = x0 ;
         center[1] = y0 ;
