@@ -4,20 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.pop.demo.App;
 import com.pop.demo.R;
 import com.pop.demo.bean.PopMedia;
 import com.pop.demo.util.FileUtils;
@@ -38,7 +35,7 @@ import java.util.List;
  * Created by pengfu on 02/04/2018.
  */
 
-public class TakeOrPickSystemAct extends Activity implements View.OnClickListener, TakePictureManager.takePictureCallBackListener {
+public class TakeOrPickSystemAct extends Activity implements View.OnClickListener, TakePictureManager.TakePictureCallbackListener {
 
 
     private TakePictureManager mTakePictureManager;
@@ -84,7 +81,7 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
         rv_photos.addItemDecoration(new SimpleGridSpacingItemDecoration(UIUtils.dp2px(5)));
         rv_photos.setAdapter(mGridAdapter);
 
-        mTakePictureManager.setTakePictureCallBackListener(this);
+        mTakePictureManager.setTakePictureCallbackListener(this);
     }
 
     @Override
@@ -122,7 +119,14 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
 
     @Override
     public void failed(int errorCode, List<String> deniedPermissions) {
-        ToastUtils.showToast("failed:" + errorCode);
+        switch (errorCode){
+            case TakePictureManager.CODE_ERR_BITMAP:
+                ToastUtils.showToast("获取图片失败。");
+                break ;
+            case TakePictureManager.CODE_ERR_PERMISSION:
+                ToastUtils.showToast("获取权限失败。");
+                break ;
+        }
     }
 
 
@@ -143,19 +147,21 @@ public class TakeOrPickSystemAct extends Activity implements View.OnClickListene
 
 
     private File getOutputMediaFile() {
-        if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            Toast.makeText(this, "请检查SDCard！", Toast.LENGTH_SHORT).show();
+        if (!FileUtils.isSdCardAvailable()) {
+            ToastUtils.showToast("请检查SDCard！");
             return null;
         }
 
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory
-                (Environment.DIRECTORY_DCIM), "PopDemo");
-        if (!mediaStorageDir.exists()) {
-            mediaStorageDir.mkdirs();
-        }
+        String appRootPath = FileUtils.createRootPath(App.getInstance());
+
+        File mediaStorageDir = new File(appRootPath, "PopDemo");
+
+        FileUtils.createDir(mediaStorageDir);
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "PIC_" + timeStamp + ".jpg");
+
         return mediaFile;
     }
 

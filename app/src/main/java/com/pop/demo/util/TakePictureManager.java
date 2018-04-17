@@ -87,7 +87,7 @@ public class TakePictureManager {
     private boolean isCompressor = true;
 
     //图片回调接口
-    private takePictureCallBackListener takeCallBacklistener;
+    private TakePictureCallbackListener takeCallbackListener;
 
     //内部权限接口，学习于郭神
     private PermissionListener permissionListener;
@@ -123,8 +123,8 @@ public class TakePictureManager {
 
                         @Override
                         public void onDenied(List<String> deniedPermissions) {
-                            if (takeCallBacklistener != null) {
-                                takeCallBacklistener.failed(1, deniedPermissions);
+                            if (takeCallbackListener != null) {
+                                takeCallbackListener.failed(CODE_ERR_PERMISSION, deniedPermissions);
                             }
                         }
                     });
@@ -147,8 +147,8 @@ public class TakePictureManager {
 
                 @Override
                 public void onDenied(List<String> deniedPermissions) {
-                    if (takeCallBacklistener != null) {
-                        takeCallBacklistener.failed(1, deniedPermissions);
+                    if (takeCallbackListener != null) {
+                        takeCallbackListener.failed(CODE_ERR_PERMISSION, deniedPermissions);
                     }
                 }
             });
@@ -255,8 +255,8 @@ public class TakePictureManager {
 
                     statZoom(srcFile, outPutFile);
                 } else {
-                    if (takeCallBacklistener != null) {
-                        takeCallBacklistener.successful(false, srcFile, imageContentUri);
+                    if (takeCallbackListener != null) {
+                        takeCallbackListener.successful(false, srcFile, imageContentUri);
                     }
                 }
 
@@ -281,22 +281,32 @@ public class TakePictureManager {
                         outputUri = Uri.fromFile(srcFile);
                         //如果选择返回一个压缩后的图片
                         if (isCompressor) {
-                            temFile = outputImage(mContext, compressImage(decodeUriAsBitmap(outputUri), 100));
-                            outputUri = Uri.fromFile(temFile);
-                        }
+                            Bitmap bitmap = decodeUriAsBitmap(outputUri);
+                            if (bitmap != null) {
+                                temFile = outputImage(mContext, compressImage(bitmap, 100));
+                                outputUri = Uri.fromFile(temFile);
 
-                        if (takeCallBacklistener != null) {
-                            takeCallBacklistener.successful(true, temFile, outputUri);
+                                if (takeCallbackListener != null) {
+                                    takeCallbackListener.successful(true, temFile, outputUri);
+                                }
+                            } else {
+                                if (takeCallbackListener != null) {
+                                    takeCallbackListener.failed(CODE_ERR_BITMAP, null);
+                                }
+                            }
+                        } else {
+                            if (takeCallbackListener != null) {
+                                takeCallbackListener.successful(true, temFile, outputUri);
+                            }
                         }
                     }
 
                 } else {
-                    if (takeCallBacklistener != null) {
-                        takeCallBacklistener.failed(0, null);
+                    if (takeCallbackListener != null) {
+                        takeCallbackListener.failed(CODE_ERR_BITMAP, null);
                     }
                 }
                 break;
-
             //裁剪后的图片：
             case CODE_TAILOR_PHOTO:
                 //拿到图片之后，用户可能会舍弃，所以先判断
@@ -315,14 +325,14 @@ public class TakePictureManager {
                             outputUri = Uri.fromFile(temFile);
                         }
 
-                        if (takeCallBacklistener != null) {
-                            takeCallBacklistener.successful(true, temFile, outputUri);
+                        if (takeCallbackListener != null) {
+                            takeCallbackListener.successful(true, temFile, outputUri);
                         }
 
                     }
                 } else {
-                    if (takeCallBacklistener != null) {
-                        takeCallBacklistener.failed(0, null);
+                    if (takeCallbackListener != null) {
+                        takeCallbackListener.failed(CODE_ERR_BITMAP, null);
                     }
                 }
 
@@ -374,8 +384,8 @@ public class TakePictureManager {
                         permissionListener.onGranted();
                     } else {
                         permissionListener.onDenied(deniedPermissions);
-                        if (takeCallBacklistener != null) {
-                            takeCallBacklistener.failed(1, deniedPermissions);
+                        if (takeCallbackListener != null) {
+                            takeCallbackListener.failed(CODE_ERR_PERMISSION, deniedPermissions);
                         }
                     }
                 }
@@ -406,8 +416,8 @@ public class TakePictureManager {
             }
 
 
-            if (takeCallBacklistener != null) {
-                takeCallBacklistener.failed(1, permissionList);
+            if (takeCallbackListener != null) {
+                takeCallbackListener.failed(CODE_ERR_PERMISSION, permissionList);
             }
         } else {
             permissionListener.onGranted();
@@ -415,13 +425,25 @@ public class TakePictureManager {
     }
 
 
-    public void setTakePictureCallBackListener(takePictureCallBackListener takeCallBacklistener) {
-        this.takeCallBacklistener = takeCallBacklistener;
+    public void setTakePictureCallbackListener(TakePictureCallbackListener takeCallBacklistener) {
+        this.takeCallbackListener = takeCallBacklistener;
     }
 
+    /**
+     * 返回结果 成功
+     */
+    public static final int CODE_OK = 0;
+    /**
+     * 返回结果 失败：图片解析错误
+     */
+    public static final int CODE_ERR_BITMAP = 1;
+    /**
+     * 返回结果 失败：权限问题
+     */
+    public static final int CODE_ERR_PERMISSION = 2;
 
     //得到图片回调接口（内部）
-    public interface takePictureCallBackListener {
+    public interface TakePictureCallbackListener {
         /**
          * 成功回调
          *
@@ -434,7 +456,7 @@ public class TakePictureManager {
         /**
          * 失败回调
          *
-         * @param errorCode         错误码  0：图片发生错误  1：被拒绝的权限
+         * @param errorCode         错误码  1：图片发生错误  2：被拒绝的权限
          * @param deniedPermissions 被拒绝的权限
          */
         void failed(int errorCode, List<String> deniedPermissions);

@@ -17,6 +17,7 @@ package com.pop.demo.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import com.pop.demo.App;
 
@@ -97,19 +98,28 @@ public class FileUtils {
     public static String createDir(String dirPath) {
         try {
             File file = new File(dirPath);
-            if (file.getParentFile().exists()) {
-                L.i("----- 创建文件夹" + file.getAbsolutePath());
-                file.mkdir();
-                return file.getAbsolutePath();
-            } else {
-                createDir(file.getParentFile().getAbsolutePath());
-                L.i("----- 创建文件夹" + file.getAbsolutePath());
-                file.mkdir();
-            }
+            dirPath = createDir(file) ;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return dirPath;
+    }
+
+    public static String createDir(File dirFile) {
+        try {
+            if (dirFile.getParentFile().exists()) {
+                L.i("----- 创建文件夹" + dirFile.getAbsolutePath());
+                dirFile.mkdir();
+                return dirFile.getAbsolutePath();
+            } else {
+                createDir(dirFile.getParentFile().getAbsolutePath());
+                L.i("----- 创建文件夹" + dirFile.getAbsolutePath());
+                dirFile.mkdir();
+            }
+        } catch (Exception e) {
+            L.e("createDir error: "+Log.getStackTraceString(e.getCause()));
+        }
+        return dirFile.getPath();
     }
 
     /**
