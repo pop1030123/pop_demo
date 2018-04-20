@@ -46,7 +46,10 @@
             android:name=".activity.ListDemoAct"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.listDemo.hive.GridViewDemoAct"
+            android:name=".activity.uiFrame.UIMainFrameAct"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.listDemo.GridViewDemoAct"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.listDemo.hive.HiveViewDemoAct"

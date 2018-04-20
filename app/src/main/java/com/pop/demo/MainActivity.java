@@ -14,11 +14,11 @@ import com.pop.demo.activity.CustomViewActivity;
 import com.pop.demo.activity.CustomViewPagerAct_;
 import com.pop.demo.activity.EditTextAct;
 import com.pop.demo.activity.ListDemoAct;
-import com.pop.demo.activity.MultiRoundImageAct;
 import com.pop.demo.activity.BarrageAct;
 import com.pop.demo.activity.RecordVideoActivity;
 import com.pop.demo.activity.SystemCameraAct;
 import com.pop.demo.activity.TimeTickAct;
+import com.pop.demo.activity.uiFrame.UIMainFrameAct;
 import com.pop.demo.util.PermissionHelper;
 
 import org.androidannotations.annotations.AfterViews;
@@ -44,6 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.wechat_video).setOnClickListener(this);
         findViewById(R.id.system_camera).setOnClickListener(this);
         findViewById(R.id.list_demo).setOnClickListener(this);
+        findViewById(R.id.ui_frame_demo).setOnClickListener(this);
     }
 
     @Override
@@ -99,6 +100,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent toListDemo = new Intent();
                 toListDemo.setClass(this, ListDemoAct.class);
                 startActivity(toListDemo);
+                break;
+            case R.id.ui_frame_demo:
+                Intent toUIFrameDemo = new Intent();
+                toUIFrameDemo.setClass(this, UIMainFrameAct.class);
+                startActivity(toUIFrameDemo);
                 break;
         }
     }

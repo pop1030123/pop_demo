@@ -29,4 +29,6 @@ dependencies {
     annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile project(':BaseRecyclerViewAdapterHelper')
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    implementation project(':ViewPagerIndicator')
 }

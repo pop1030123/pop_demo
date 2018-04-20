@@ -13,6 +13,7 @@
 
 
     <color name="white">#fff</color>
+    <color name="white_tran">#8fff</color>
 
     <color name="orange">#ffffdc7e</color>
 

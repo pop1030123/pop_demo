@@ -45,7 +45,7 @@ public class App extends Application {
                 .imageDownloader(new BaseImageDownloader(this)) // default
                 .imageDecoder(new BaseImageDecoder(true)) // default
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
-                .writeDebugLogs()
+//                .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);
     }

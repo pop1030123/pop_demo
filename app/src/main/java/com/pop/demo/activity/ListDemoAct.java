@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.pop.demo.R;
 import com.pop.demo.activity.listDemo.channelManage.ChannelManageActivity;
-import com.pop.demo.activity.listDemo.hive.GridViewDemoAct;
+import com.pop.demo.activity.listDemo.GridViewDemoAct;
 import com.pop.demo.activity.listDemo.hive.HiveViewDemoAct;
 
 /**
