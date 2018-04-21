@@ -49,7 +49,11 @@ public class SwipeRefreshListView extends SwipeRefreshLayout {
                 if (getChildAt(0) instanceof ListView) {
                     // 创建ListView对象
                     mListView = (ListView) getChildAt(0);
-
+                    //添加Footer view.
+                    mListView.addFooterView(mFooterView);
+                    mListView.setFooterDividersEnabled(false);
+                    //默认不显示footer view.
+                    mFooterView.setVisibility(INVISIBLE);
                     // 设置ListView的滑动监听
                     setListViewOnScroll();
                 }
@@ -140,22 +144,22 @@ public class SwipeRefreshListView extends SwipeRefreshLayout {
         isLoading = loading;
         if (isLoading) {
             // 显示布局
-            mListView.addFooterView(mFooterView);
-            mListView.post(new Runnable() {
-                @Override
-                public void run() {
-                    int count = mListView.getCount();
-                    int footerPosition = mListView.getPositionForView(mFooterView);
-                    if (footerPosition == -1) {
-                        // 让footer显示到界面上.
-                        mListView.smoothScrollToPosition(count - 1);
-                    }
-                }
-            });
+            mFooterView.setVisibility(VISIBLE);
+//            mListView.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    int count = mListView.getCount();
+//                    int footerPosition = mListView.getPositionForView(mFooterView);
+//                    if (footerPosition == -1) {
+//                        // 让footer显示到界面上.
+//                        mListView.smoothScrollToPosition(count - 1);
+//                    }
+//                }
+//            });
         } else {
             // 隐藏布局
-            mListView.removeFooterView(mFooterView);
-
+            mFooterView.setVisibility(INVISIBLE);
+//            mListView.removeFooterView(mFooterView);
             // 重置滑动的坐标
             mDownY = 0;
             mUpY = 0;
