@@ -2,24 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:padding="5dp"
               android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#fff">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_launcher"/>
+            android:id="@+id/iv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_placeholder"/>
 
         <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|top"
-            android:text="a"/>
+            android:layout_gravity="bottom"
+            android:padding="3dp"
+            android:background="#8888"
+            android:text="马松"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_sub_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginTop="5dp"
+        android:text="用情商搞定爱情，张小欧巴"
+        android:textColor="@color/txt_333"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:maxLines="1"
+        android:text="9999次学习"
+        android:textColor="@color/txt_999"
+        android:textSize="11sp"/>
+
 </LinearLayout>

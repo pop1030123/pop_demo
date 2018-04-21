@@ -1,6 +1,5 @@
 package com.pop.demo.activity.uiFrame;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +19,11 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.pop.demo.R;
 import com.pop.demo.bean.BannerVO;
 import com.pop.demo.util.DisplayUtil;
-import com.pop.demo.util.L;
 import com.pop.demo.util.ToastUtils;
 import com.pop.demo.view.pageIndicator.MyTabPageIndicator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**

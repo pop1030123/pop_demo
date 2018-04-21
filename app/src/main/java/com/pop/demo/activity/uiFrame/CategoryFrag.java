@@ -109,7 +109,7 @@ public class CategoryFrag extends Fragment {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                mTextView = (TextView) itemView.findViewById(R.id.text);
+                mTextView = (TextView) itemView.findViewById(R.id.tv_title);
             }
         }
     }
