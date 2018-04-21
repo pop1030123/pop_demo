@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.pop.demo.R;
 import com.pop.demo.util.L;
 
@@ -29,7 +31,7 @@ public class CategoryFrag extends Fragment {
 
     public static final String KEY_TITLE = "KEY_TITLE";
 
-    private String mTitle ;
+    private String mTitle;
 
     public static CategoryFrag getInstance(String title) {
         CategoryFrag categoryFrag = new CategoryFrag();
@@ -53,8 +55,8 @@ public class CategoryFrag extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
-        mTitle = bundle.getString(KEY_TITLE) ;
-        L.d("onViewCreated."+mTitle);
+        mTitle = bundle.getString(KEY_TITLE);
+        L.d("onViewCreated." + mTitle);
     }
 
     private void initView(View rootView) {
@@ -68,55 +70,31 @@ public class CategoryFrag extends Fragment {
                 data.add(title + i);
             }
         }
-        mMyGridAdapter = new MyGridAdapter(getContext(), data);
+        mMyGridAdapter = new MyGridAdapter(R.layout.item_grid_list, data);
         mGridView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         mGridView.setAdapter(mMyGridAdapter);
     }
 
 
-    static class MyGridAdapter extends RecyclerView.Adapter<MyGridAdapter.ViewHolder> {
+    static class MyGridAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
 
-        private List<String> mDataList;
-        private Context mContext;
-
-        public MyGridAdapter(Context context, List<String> data) {
-            mContext = context;
-            mDataList = data;
+        public MyGridAdapter(int layoutResId, @Nullable List<String> data) {
+            super(layoutResId, data);
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_grid_list, null, false);
-            return new ViewHolder(rootView);
+        protected void convert(BaseViewHolder helper, String item) {
+            helper.setText(R.id.tv_title, item);
+            helper.setText(R.id.tv_sub_title, "这是" + item + "的子标题");
         }
 
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.mTextView.setText(mDataList.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return mDataList.size();
-        }
-
-
-        static class ViewHolder extends RecyclerView.ViewHolder {
-
-            private TextView mTextView;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                mTextView = (TextView) itemView.findViewById(R.id.tv_title);
-            }
-        }
     }
 
 
-    public void destory(){
-        L.d("destory -->"+mTitle);
+    public void destory() {
+        L.d("destory -->" + mTitle);
     }
 
 }
