@@ -2,10 +2,14 @@ package com.pop.demo.activity.listDemo;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+
+import com.pop.demo.util.ToastUtils;
 
 /**
  * Created by pengfu on 22/04/2018.
@@ -50,10 +54,22 @@ public class LoadMoreRecyclerView extends RecyclerView {
                 if (SCROLL_STATE_IDLE == newState) {
                     // 滑动停止了，需要判断是否显示footer,加载更多数据
                     // 如果recycler view显示的是最后一条数据，则需要显示
-                    if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+                    int lastVisiblePosition = 0;
+                    int itemCount = 0;
+                    if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
+                        GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+                        lastVisiblePosition = gridLayoutManager.findLastCompletelyVisibleItemPosition();
+                        itemCount = recyclerView.getAdapter().getItemCount();
+                        if ((itemCount - 1) == lastVisiblePosition && !isLoadingMore) {
+                            setLoadMore(true);
+                            if (mOnLoadMoreListener != null) {
+                                mOnLoadMoreListener.onLoadMore();
+                            }
+                        }
+                    }else if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
                         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                        int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
-                        int itemCount = recyclerView.getAdapter().getItemCount();
+                        lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+                        itemCount = recyclerView.getAdapter().getItemCount();
                         if ((itemCount - 1) == lastVisiblePosition && !isLoadingMore) {
                             // footer view 显示出来
                             mLastLoadMoreView = linearLayoutManager.findViewByPosition(lastVisiblePosition);
@@ -74,14 +90,16 @@ public class LoadMoreRecyclerView extends RecyclerView {
      * @param loadMore
      */
     public void setLoadMore(boolean loadMore) {
-        if (mLastLoadMoreView != null) {
-            if (loadMore) {
+        if (loadMore) {
+            if (mLastLoadMoreView != null) {
                 mLastLoadMoreView.setVisibility(VISIBLE);
-                isLoadingMore = true;
-            } else {
-                mLastLoadMoreView.setVisibility(INVISIBLE);
-                isLoadingMore = false;
             }
+            isLoadingMore = true;
+        } else {
+            if (mLastLoadMoreView != null) {
+                mLastLoadMoreView.setVisibility(INVISIBLE);
+            }
+            isLoadingMore = false;
         }
     }
 

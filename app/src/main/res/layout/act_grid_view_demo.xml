@@ -19,8 +19,8 @@
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
         cube_ptr:ptr_resistance="1.7">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
+        <com.pop.demo.activity.listDemo.LoadMoreRecyclerView
+            android:id="@+id/grid_list_demo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>

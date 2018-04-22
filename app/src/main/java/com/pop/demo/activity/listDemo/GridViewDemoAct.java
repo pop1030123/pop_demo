@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.pop.demo.R;
 import com.pop.demo.util.ToastUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -28,8 +27,9 @@ import in.srain.cube.views.ptr.PtrHandler;
 
 public class GridViewDemoAct extends Activity {
 
+    private static final String TAG = GridViewDemoAct.class.getSimpleName();
 
-    private RecyclerView mListView;
+    private LoadMoreRecyclerView mGridListView;
 
     private ListAdapter mListAdapter;
 
@@ -51,22 +51,30 @@ public class GridViewDemoAct extends Activity {
 
         setContentView(R.layout.act_grid_view_demo);
 
-        mListView = (RecyclerView) findViewById(R.id.list);
+        mGridListView = (LoadMoreRecyclerView) findViewById(R.id.grid_list_demo);
 
+        mListAdapter = new ListAdapter(this, MockListData.getData(mPageNo, PAGE_SIZE));
 
-        mListAdapter = new ListAdapter(this ,MockListData.getData(mPageNo ,PAGE_SIZE));
+        mGridListView.setLayoutManager(new GridLayoutManager(this, 4));
 
-        mListView.setLayoutManager(new GridLayoutManager(this, 4));
+        mGridListView.setAdapter(mListAdapter);
 
-        mListView.setAdapter(mListAdapter);
+        mGridListView.setOnLoadMoreListener(new LoadMoreRecyclerView.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                mPageNo++ ;
+                mListAdapter.addMoreData(MockListData.getData(mPageNo ,PAGE_SIZE));
+                mGridListView.setLoadMore(false);
+            }
+        });
 
         mPtrFrame = (PtrClassicFrameLayout) findViewById(R.id.rotate_header_grid_view_frame);
         mPtrFrame.setLastUpdateTimeRelateObject(this);
         mPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mPageNo = 0 ;
-                mListAdapter.addNewData(MockListData.getData(mPageNo ,PAGE_SIZE));
+                mPageNo = 0;
+                mListAdapter.addNewData(MockListData.getData(mPageNo, PAGE_SIZE));
                 // 调用刷新完成.
                 mPtrFrame.refreshComplete();
             }
@@ -83,10 +91,10 @@ public class GridViewDemoAct extends Activity {
 
 
         private List<String> mDataList;
-        private Context mContext ;
+        private Context mContext;
 
-        public ListAdapter(Context context , List<String> data) {
-            mContext = context ;
+        public ListAdapter(Context context, List<String> data) {
+            mContext = context;
             mDataList = data;
         }
 
