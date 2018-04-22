@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.pop.demo.R;
 import com.pop.demo.activity.listDemo.PullUpDownListViewAct;
+import com.pop.demo.activity.listDemo.PullUpDownRecyclerViewAct;
 import com.pop.demo.activity.listDemo.channelManage.ChannelManageActivity;
 import com.pop.demo.activity.listDemo.GridViewDemoAct;
 import com.pop.demo.activity.listDemo.hive.HiveViewDemoAct;
@@ -29,8 +30,7 @@ public class ListDemoAct extends Activity implements View.OnClickListener {
         findViewById(R.id.tv_hive_view_demo).setOnClickListener(this);
         findViewById(R.id.tv_channel_mgr).setOnClickListener(this);
         findViewById(R.id.tv_pull_updown_listview).setOnClickListener(this);
-
-
+        findViewById(R.id.tv_pull_updown_recyclerview).setOnClickListener(this);
     }
 
 
@@ -48,6 +48,9 @@ public class ListDemoAct extends Activity implements View.OnClickListener {
                 break;
             case R.id.tv_pull_updown_listview:
                 startActivity(new Intent(this, PullUpDownListViewAct.class));
+                break;
+            case R.id.tv_pull_updown_recyclerview:
+                startActivity(new Intent(this, PullUpDownRecyclerViewAct.class));
                 break;
         }
     }

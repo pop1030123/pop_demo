@@ -55,6 +55,9 @@
             android:name=".activity.listDemo.PullUpDownListViewAct"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.listDemo.PullUpDownRecyclerViewAct"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.listDemo.hive.HiveViewDemoAct"
             android:screenOrientation="portrait"/>
         <activity

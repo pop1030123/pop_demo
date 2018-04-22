@@ -47,6 +47,19 @@
         android:gravity="center"
         android:padding="10dp"
         android:textColor="@color/tv_text"
-        android:text="上下拉ListView"
+        android:textSize="10sp"
+        android:text="上下拉ListView(SwipeRefreshLayout+ ListView中加footer)"
+        />
+    <TextView
+        android:id="@+id/tv_pull_updown_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/tv_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/tv_text"
+        android:textSize="10sp"
+        android:text="上下拉RecyclerView(SwipeRefreshLayout+adapter footer)"
         />
 </LinearLayout>
