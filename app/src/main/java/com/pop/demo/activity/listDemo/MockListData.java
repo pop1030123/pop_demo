@@ -10,10 +10,15 @@ import java.util.List;
 public class MockListData {
 
 
-    private static final int MAX_PAGE = 10;
+    private static final int MAX_PAGE = 5;
 
 
     public static List<String> getData(int pageNo, int pageSize) {
+        return getData(pageNo, pageSize, "DEMO数据");
+    }
+
+
+    public static List<String> getData(int pageNo, int pageSize, String tag) {
 
         List<String> dataList = new ArrayList<>();
 
@@ -22,7 +27,7 @@ public class MockListData {
             int itemStart = pageNo * pageSize;
 
             for (int i = itemStart; i < itemStart + pageSize; i++) {
-                dataList.add("DEMO数据" + i);
+                dataList.add(tag + i);
             }
         }
 

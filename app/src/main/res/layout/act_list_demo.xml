@@ -14,7 +14,8 @@
         android:background="@drawable/tv_bg"
         android:gravity="center"
         android:padding="10dp"
-        android:text="普通gridView demo"
+        android:text="下拉刷新和loadMore gridView(ptr-lib + RecyclerView)"
+        android:textSize="10sp"
         android:textColor="@color/tv_text"
         />
     <TextView
