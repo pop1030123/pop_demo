@@ -12,9 +12,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pop.demo.R;
+import com.pop.demo.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * Created by pengfu on 27/02/2018.
@@ -27,6 +33,18 @@ public class GridViewDemoAct extends Activity {
 
     private ListAdapter mListAdapter;
 
+    /**
+     * 当前页码
+     */
+    private int mPageNo;
+
+    /**
+     * 每页条目数目
+     */
+    private static final int PAGE_SIZE = 15;
+
+    private PtrClassicFrameLayout mPtrFrame;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,18 +54,28 @@ public class GridViewDemoAct extends Activity {
         mListView = (RecyclerView) findViewById(R.id.list);
 
 
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add("" + i);
-        }
-
-
-        mListAdapter = new ListAdapter(this ,data);
+        mListAdapter = new ListAdapter(this ,MockListData.getData(mPageNo ,PAGE_SIZE));
 
         mListView.setLayoutManager(new GridLayoutManager(this, 4));
 
         mListView.setAdapter(mListAdapter);
 
+        mPtrFrame = (PtrClassicFrameLayout) findViewById(R.id.rotate_header_grid_view_frame);
+        mPtrFrame.setLastUpdateTimeRelateObject(this);
+        mPtrFrame.setPtrHandler(new PtrHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                mPageNo = 0 ;
+                mListAdapter.addNewData(MockListData.getData(mPageNo ,PAGE_SIZE));
+                // 调用刷新完成.
+                mPtrFrame.refreshComplete();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+        });
     }
 
 
@@ -64,7 +92,7 @@ public class GridViewDemoAct extends Activity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_list, null, false);
+            View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_demo_list, parent, false);
             return new ViewHolder(rootView);
         }
 
@@ -78,6 +106,26 @@ public class GridViewDemoAct extends Activity {
             return mDataList.size();
         }
 
+
+        public void addMoreData(List<String> data) {
+            if (data != null && !data.isEmpty()) {
+                mDataList.addAll(data);
+            } else {
+                ToastUtils.showToast("没有更多数据了.");
+            }
+            notifyDataSetChanged();
+        }
+
+        public void addNewData(List<String> data) {
+            mDataList.clear();
+            if (data != null && !data.isEmpty()) {
+                mDataList.addAll(data);
+            } else {
+                ToastUtils.showToast("没有数据.");
+                // todo 显示空界面？
+            }
+            notifyDataSetChanged();
+        }
 
         static class ViewHolder extends RecyclerView.ViewHolder {
 

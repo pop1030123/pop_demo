@@ -31,4 +31,5 @@ dependencies {
     compile project(':BaseRecyclerViewAdapterHelper')
     compile 'com.bigkoo:convenientbanner:2.0.5'
     implementation project(':ViewPagerIndicator')
+    implementation project(':ptr-lib')
 }

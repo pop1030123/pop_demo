@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -19,7 +18,7 @@ public class LoadMoreRecyclerView extends RecyclerView {
     /**
      * 加载更多的响应回调
      */
-    private LoadMoreCallback mLoadMoreCallback;
+    private OnLoadMoreListener mOnLoadMoreListener;
 
     /**
      * 是否正在加载更多
@@ -59,8 +58,8 @@ public class LoadMoreRecyclerView extends RecyclerView {
                             // footer view 显示出来
                             mLastLoadMoreView = linearLayoutManager.findViewByPosition(lastVisiblePosition);
                             setLoadMore(true);
-                            if (mLoadMoreCallback != null) {
-                                mLoadMoreCallback.onLoadMore();
+                            if (mOnLoadMoreListener != null) {
+                                mOnLoadMoreListener.onLoadMore();
                             }
                         }
                     }
@@ -86,12 +85,12 @@ public class LoadMoreRecyclerView extends RecyclerView {
         }
     }
 
-    public void setLoadMoreListener(LoadMoreCallback callback) {
-        this.mLoadMoreCallback = callback;
+    public void setOnLoadMoreListener(OnLoadMoreListener callback) {
+        this.mOnLoadMoreListener = callback;
     }
 
 
-    public interface LoadMoreCallback {
+    public interface OnLoadMoreListener {
         void onLoadMore();
     }
 }

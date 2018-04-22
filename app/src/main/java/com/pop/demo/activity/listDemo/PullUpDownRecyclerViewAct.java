@@ -11,19 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pop.demo.R;
 import com.pop.demo.util.ToastUtils;
 import com.pop.demo.util.UIUtils;
 import com.pop.demo.view.SimpleSpacingItemDecoration;
-import com.pop.demo.view.SwipeRefreshListView;
 
 import java.util.List;
-
-import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 /**
  * Created by pengfu on 27/02/2018.
@@ -86,14 +81,16 @@ public class PullUpDownRecyclerViewAct extends Activity {
         mRecyclerView.addItemDecoration(new SimpleSpacingItemDecoration(LinearLayoutManager.VERTICAL, UIUtils.dp2px(5)));
         mRecyclerView.setAdapter(mListAdapter);
 
-        mRecyclerView.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreCallback() {
+        mRecyclerView.setOnLoadMoreListener(new LoadMoreRecyclerView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 mRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mPageNo++ ;
+                        // 请求数据
                         mListAdapter.addMoreData(MockListData.getData(mPageNo ,PAGE_SIZE));
+                        // 数据加载完成后，将loadMore的状态重置;
                         mRecyclerView.setLoadMore(false);
                     }
                 },1000);
@@ -149,7 +146,7 @@ public class PullUpDownRecyclerViewAct extends Activity {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             switch (viewType) {
                 case ITEM_TYPE_FOOTER:
-                    View footerView = LayoutInflater.from(mContext).inflate(R.layout.view_footer, null, false);
+                    View footerView = LayoutInflater.from(mContext).inflate(R.layout.view_footer, parent, false);
                     return new MyFooterHolder(footerView);
                 default:
                     // 默认的都是普通数据类型的.
