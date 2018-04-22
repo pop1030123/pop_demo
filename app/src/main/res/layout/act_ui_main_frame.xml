@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:orientation="vertical">
 
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/convenientBanner"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="188dp"
-        app:canLoop="true"
-        />
+        android:layout_height="wrap_content">
 
-    <com.pop.demo.view.pageIndicator.MyTabPageIndicator
-        android:id="@+id/tpi_page_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/convenientBanner"
+            android:layout_width="match_parent"
+            android:layout_height="188dp"
+            app:canLoop="true"
+            app:layout_scrollFlags="scroll|enterAlways"
+            />
+
+        <com.pop.demo.view.pageIndicator.MyTabPageIndicator
+            android:id="@+id/tpi_page_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"/>
+
+    </android.support.design.widget.AppBarLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -25,5 +34,6 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+</android.support.design.widget.CoordinatorLayout>
