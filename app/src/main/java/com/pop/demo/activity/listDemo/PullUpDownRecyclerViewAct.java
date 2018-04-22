@@ -33,7 +33,7 @@ public class PullUpDownRecyclerViewAct extends Activity {
 
     private static final String TAG = PullUpDownRecyclerViewAct.class.getSimpleName();
 
-    private RecyclerView mRecyclerView;
+    private LoadMoreRecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private ListAdapter mListAdapter;
@@ -42,11 +42,6 @@ public class PullUpDownRecyclerViewAct extends Activity {
      * 当前页码
      */
     private int mPageNo;
-
-    /**
-     * 是否正在加载更多
-     */
-    private boolean isLoadingMore ;
 
     /**
      * 每页条目数目
@@ -91,38 +86,19 @@ public class PullUpDownRecyclerViewAct extends Activity {
         mRecyclerView.addItemDecoration(new SimpleSpacingItemDecoration(LinearLayoutManager.VERTICAL, UIUtils.dp2px(5)));
         mRecyclerView.setAdapter(mListAdapter);
 
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreCallback() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                Log.d(TAG, "onScrollStateChanged:newState:" + newState);
-                if(SCROLL_STATE_IDLE == newState){
-                    // 滑动停止了，需要判断是否显示footer,加载更多数据
-                    // 如果recycler view显示的是最后一条数据，则需要显示
-                    if(recyclerView.getLayoutManager() instanceof LinearLayoutManager){
-                        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                        int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
-                        int itemCount = recyclerView.getAdapter().getItemCount();
-                        Log.d(TAG ,"lastVisiblePosition:"+lastVisiblePosition+":itemCount:"+itemCount);
-                        if((itemCount-1) == lastVisiblePosition && !isLoadingMore){
-                            isLoadingMore = true;
-                            // footer view 显示出来
-                            View lastVisibleView = linearLayoutManager.findViewByPosition(lastVisiblePosition);
-                            Log.d(TAG ,"lastVisibleView:"+lastVisibleView);
-                            lastVisibleView.setVisibility(View.VISIBLE);
-                            mRecyclerView.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mPageNo++ ;
-                                    mListAdapter.addMoreData(MockListData.getData(mPageNo ,PAGE_SIZE));
-                                    isLoadingMore = false ;
-                                }
-                            },1000);
-                        }
-                    };
-                }
+            public void onLoadMore() {
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPageNo++ ;
+                        mListAdapter.addMoreData(MockListData.getData(mPageNo ,PAGE_SIZE));
+                        mRecyclerView.setLoadMore(false);
+                    }
+                },1000);
             }
         });
-
     }
 
 
@@ -187,7 +163,7 @@ public class PullUpDownRecyclerViewAct extends Activity {
             if (holder instanceof MyViewHolder) {
                 ((MyViewHolder) holder).mTextView.setText(mDataList.get(position));
             } else {
-                // footer view;
+                // footer view默认不显示，在recycler view滑动后判断是否显示;
                 holder.itemView.setVisibility(View.INVISIBLE);
                 Log.d(TAG ,"onBindViewHolder footer view:"+holder.itemView);
             }
