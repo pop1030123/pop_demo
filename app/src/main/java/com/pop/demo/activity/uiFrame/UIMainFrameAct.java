@@ -3,6 +3,7 @@ package com.pop.demo.activity.uiFrame;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +21,6 @@ import com.pop.demo.R;
 import com.pop.demo.bean.BannerVO;
 import com.pop.demo.util.DisplayUtil;
 import com.pop.demo.util.ToastUtils;
-import com.pop.demo.view.pageIndicator.MyTabPageIndicator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,12 +34,12 @@ public class UIMainFrameAct extends FragmentActivity {
 
     private ConvenientBanner mConvenientBanner;
 
-    private MyTabPageIndicator mMyTabPageIndicator;
+    private TabLayout mMyTabLayout;
 
     private ViewPager mViewPager;
     private MyPagerAdapter mMyPagerAdapter;
 
-    private String[] categories = new String[]{"推荐", "流行", "个性", "摇滚"};
+    private String[] categories = new String[]{"推荐", "流行", "个性", "摇滚","轻音乐","华彩","英文","八音盒"};
 
 
     @Override
@@ -57,7 +57,8 @@ public class UIMainFrameAct extends FragmentActivity {
 
         mConvenientBanner = findViewById(R.id.convenientBanner);
 
-        mMyTabPageIndicator = findViewById(R.id.tpi_page_indicator);
+        mMyTabLayout = findViewById(R.id.tpi_page_indicator);
+        mMyTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         mViewPager = findViewById(R.id.vp_pager);
     }
@@ -91,7 +92,7 @@ public class UIMainFrameAct extends FragmentActivity {
 
         mViewPager.setAdapter(mMyPagerAdapter);
 
-        mMyTabPageIndicator.setViewPager(mViewPager);
+        mMyTabLayout.setupWithViewPager(mViewPager);
     }
 
     public class BannerHolder implements Holder<BannerVO> {
