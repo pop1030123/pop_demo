@@ -43,6 +43,12 @@
             android:name=".activity.customView.MovedViewActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.threadDemo.ThreadDemoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.threadDemo.CountDownLatchAct"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.ListDemoAct"
             android:screenOrientation="portrait"/>
         <activity

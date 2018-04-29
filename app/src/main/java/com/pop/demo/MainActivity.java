@@ -18,6 +18,7 @@ import com.pop.demo.activity.BarrageAct;
 import com.pop.demo.activity.RecordVideoActivity;
 import com.pop.demo.activity.SystemCameraAct;
 import com.pop.demo.activity.TimeTickAct;
+import com.pop.demo.activity.threadDemo.ThreadDemoActivity;
 import com.pop.demo.activity.uiFrame.UIMainFrameAct;
 import com.pop.demo.util.PermissionHelper;
 
@@ -45,6 +46,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.system_camera).setOnClickListener(this);
         findViewById(R.id.list_demo).setOnClickListener(this);
         findViewById(R.id.ui_frame_demo).setOnClickListener(this);
+        findViewById(R.id.thread_demo).setOnClickListener(this);
     }
 
     @Override
@@ -105,6 +107,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent toUIFrameDemo = new Intent();
                 toUIFrameDemo.setClass(this, UIMainFrameAct.class);
                 startActivity(toUIFrameDemo);
+                break;
+            case R.id.thread_demo:
+                startActivity(new Intent(this , ThreadDemoActivity.class));
                 break;
         }
     }
