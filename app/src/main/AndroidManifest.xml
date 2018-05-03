@@ -49,6 +49,9 @@
             android:name=".activity.threadDemo.CountDownLatchAct"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.threadDemo.ProducerConsumerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.ListDemoAct"
             android:screenOrientation="portrait"/>
         <activity

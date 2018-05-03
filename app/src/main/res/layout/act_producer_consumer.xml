@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="vertical">
+              android:layout_height="match_parent">
+
 
     <TextView
-        android:id="@+id/tv_count_down_latch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="生产者和消费者"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="生产者负责生产，最多生产5个，多了就等待，消费者负责消费，没有就等待。"/>
+
+
+
+    <TextView
+        android:id="@+id/tv_start_producer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/tv_bg"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Count Down Latch"
-        android:textColor="@color/tv_text"/>
-
-    <TextView
-        android:id="@+id/tv_producer_consumer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/tv_bg"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="生产者和消费者"
-        android:textColor="@color/tv_text"/>
+        android:textColor="@color/tv_text"
+        android:text="Start Producer"/>
 </LinearLayout>

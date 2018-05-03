@@ -79,7 +79,7 @@ public class CountDownLatchAct extends Activity implements View.OnClickListener 
                         while (progress < 30) {
                             progress++;
                             try {
-                                Thread.sleep(200);
+                                Thread.sleep(100);
                             } catch (InterruptedException e) {
                                 Log.e(TAG ,"休眠被中断:"+e);
                             }
