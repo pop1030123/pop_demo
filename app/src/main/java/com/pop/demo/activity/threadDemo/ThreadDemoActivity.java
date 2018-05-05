@@ -22,6 +22,7 @@ public class ThreadDemoActivity extends Activity implements View.OnClickListener
 
         findViewById(R.id.tv_count_down_latch).setOnClickListener(this);
         findViewById(R.id.tv_producer_consumer).setOnClickListener(this);
+        findViewById(R.id.tv_sell_ticket).setOnClickListener(this);
     }
 
     @Override
@@ -33,6 +34,9 @@ public class ThreadDemoActivity extends Activity implements View.OnClickListener
                 break ;
             case R.id.tv_producer_consumer:
                 startActivity(new Intent(this ,ProducerConsumerActivity.class));
+                break ;
+            case R.id.tv_sell_ticket:
+                startActivity(new Intent(this ,SellTicketActivity.class));
                 break ;
         }
     }

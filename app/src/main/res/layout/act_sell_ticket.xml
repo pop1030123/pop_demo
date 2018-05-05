@@ -2,39 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:gravity="center"
               android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_count_down_latch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/tv_bg"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="Count Down Latch"
-        android:textColor="@color/tv_text"/>
 
     <TextView
-        android:id="@+id/tv_producer_consumer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/tv_bg"
         android:gravity="center"
-        android:padding="10dp"
-        android:text="生产者和消费者"
-        android:textColor="@color/tv_text"/>
+        android:padding="5dp"
+        android:text="4个售票窗口同时售卖20张票。"/>
+
 
     <TextView
-        android:id="@+id/tv_sell_ticket"
+        android:id="@+id/tv_sell_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="售票窗口1："/>
+
+
+    <TextView
+        android:id="@+id/tv_sell_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="售票窗口2："/>
+
+
+    <TextView
+        android:id="@+id/tv_sell_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="售票窗口3："/>
+
+    <TextView
+        android:id="@+id/tv_sell_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="售票窗口4："/>
+
+    <TextView
+        android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/tv_bg"
         android:gravity="center"
         android:padding="10dp"
-        android:text="4个窗口同时售票"
+        android:text="Start"
         android:textColor="@color/tv_text"/>
 </LinearLayout>
