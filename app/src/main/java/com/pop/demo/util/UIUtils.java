@@ -15,6 +15,14 @@ import com.pop.demo.App;
 public class UIUtils {
 
 
+    private static final String TAG = "UIUtils" ;
+
+    public static String print(){
+        String info = "ScreenSize:"+getScreenWidth()+"x"+getScreenHeight()+"::density:"+App.getInstance().getResources().getDisplayMetrics().density ;
+        L.d(TAG ,info);
+        return info ;
+    }
+
     /**
      * dp/dip转换为px.
      * @param dpValue

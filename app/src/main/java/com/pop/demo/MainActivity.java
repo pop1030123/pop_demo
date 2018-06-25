@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pop.demo.activity.BezierCurveAct;
@@ -21,6 +22,7 @@ import com.pop.demo.activity.TimeTickAct;
 import com.pop.demo.activity.threadDemo.ThreadDemoActivity;
 import com.pop.demo.activity.uiFrame.UIMainFrameAct;
 import com.pop.demo.util.PermissionHelper;
+import com.pop.demo.util.UIUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -31,10 +33,16 @@ import java.util.List;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity implements View.OnClickListener {
 
+
+    private TextView tv_content ;
     @AfterViews
     void afterViews() {
 
         mPermissionHelper = new PermissionHelper(this);
+
+        tv_content = findViewById(R.id.tv_content);
+
+        tv_content.setText(UIUtils.print());
 
         findViewById(R.id.btn_custom_view).setOnClickListener(this);
         findViewById(R.id.barrage).setOnClickListener(this);
