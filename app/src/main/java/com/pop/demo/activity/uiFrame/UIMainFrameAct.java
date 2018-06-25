@@ -1,6 +1,7 @@
 package com.pop.demo.activity.uiFrame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -84,7 +85,8 @@ public class UIMainFrameAct extends FragmentActivity {
                 .startTurning(4000).setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                ToastUtils.showToast("select :" + position);
+                // 跳转到详情页面.
+                startActivity(new Intent(UIMainFrameAct.this ,UIDetailActivity.class));
             }
         });
 
