@@ -46,6 +46,9 @@
             android:name=".activity.threadDemo.ThreadDemoActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.customView.TreeViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.threadDemo.CountDownLatchAct"
             android:screenOrientation="portrait"/>
         <activity
