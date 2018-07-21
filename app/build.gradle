@@ -33,6 +33,4 @@ dependencies {
     implementation project(':ViewPagerIndicator')
     implementation project(':ptr-lib')
     implementation project(':treeview-lib')
-
-    compile 'com.github.johnkil.print:print:1.2.2'
 }

@@ -28,8 +28,8 @@ public class TreeViewActivity extends Activity {
 
         TreeNode root = TreeNode.root();
 
-        TreeNode s1 = new TreeNode(new IconTreeItemHolder.IconTreeItem(R.string.ic_folder, "Folder with very long name ")).setViewHolder(new IconTreeItemHolder(this));
-        TreeNode s2 = new TreeNode(new IconTreeItemHolder.IconTreeItem(R.string.ic_folder, "Another folder with very long name")).setViewHolder(new IconTreeItemHolder(this));
+        TreeNode s1 = new TreeNode(new IconTreeItemHolder.IconTreeItem("Folder with very long name ")).setViewHolder(new IconTreeItemHolder(this));
+        TreeNode s2 = new TreeNode(new IconTreeItemHolder.IconTreeItem("Another folder with very long name")).setViewHolder(new IconTreeItemHolder(this));
 
         fillFolder(s1);
         fillFolder(s2);
@@ -49,8 +49,8 @@ public class TreeViewActivity extends Activity {
 
     private void fillFolder(TreeNode folder) {
         TreeNode currentNode = folder;
-        for (int i = 0; i < 10; i++) {
-            TreeNode file = new TreeNode(new IconTreeItemHolder.IconTreeItem(R.string.ic_folder, NAME)).setViewHolder(new IconTreeItemHolder(this));
+        for (int i = 0; i < 5; i++) {
+            TreeNode file = new TreeNode(new IconTreeItemHolder.IconTreeItem(NAME)).setViewHolder(new IconTreeItemHolder(this));
             currentNode.addChild(file);
             currentNode = file;
         }
