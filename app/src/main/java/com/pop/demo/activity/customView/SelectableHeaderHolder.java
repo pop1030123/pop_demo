@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.johnkil.print.PrintView;
 import com.pop.demo.R;
 import com.unnamed.b.atv.model.TreeNode;
 
@@ -16,7 +16,7 @@ import com.unnamed.b.atv.model.TreeNode;
  */
 public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTreeItemHolder.IconTreeItem> {
     private TextView tvValue;
-    private PrintView arrowView;
+    private ImageView arrowView;
     private CheckBox nodeSelector;
 
     public SelectableHeaderHolder(Context context) {
@@ -31,10 +31,10 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
         tvValue = (TextView) view.findViewById(R.id.node_value);
         tvValue.setText(value.text);
 
-        final PrintView iconView = (PrintView) view.findViewById(R.id.icon);
-        iconView.setIconText(context.getResources().getString(value.icon));
+        final ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+//        iconView.setIconText(context.getResources().getString(value.icon));
 
-        arrowView = (PrintView) view.findViewById(R.id.arrow_icon);
+        arrowView = (ImageView) view.findViewById(R.id.arrow_icon);
         if (node.isLeaf()) {
             arrowView.setVisibility(View.GONE);
         }
@@ -56,7 +56,7 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
 
     @Override
     public void toggle(boolean active) {
-        arrowView.setIconText(context.getResources().getString(active ? R.string.ic_keyboard_arrow_down : R.string.ic_keyboard_arrow_right));
+//        arrowView.setIconText(context.getResources().getString(active ? R.string.ic_keyboard_arrow_down : R.string.ic_keyboard_arrow_right));
     }
 
     @Override

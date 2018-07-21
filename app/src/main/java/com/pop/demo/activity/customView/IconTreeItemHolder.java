@@ -3,9 +3,9 @@ package com.pop.demo.activity.customView;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.johnkil.print.PrintView;
 import com.pop.demo.R;
 import com.unnamed.b.atv.model.TreeNode;
 
@@ -14,7 +14,7 @@ import com.unnamed.b.atv.model.TreeNode;
  */
 public class IconTreeItemHolder extends TreeNode.BaseNodeViewHolder<IconTreeItemHolder.IconTreeItem> {
     private TextView tvValue;
-    private PrintView arrowView;
+    private ImageView arrowView;
 
     public IconTreeItemHolder(Context context) {
         super(context);
@@ -22,20 +22,16 @@ public class IconTreeItemHolder extends TreeNode.BaseNodeViewHolder<IconTreeItem
 
     @Override
     public View createNodeView(final TreeNode node, IconTreeItem value) {
-        final LayoutInflater inflater = LayoutInflater.from(context);
-        final View view = inflater.inflate(R.layout.layout_icon_node, null, false);
+        final View view = LayoutInflater.from(context).inflate(R.layout.layout_icon_node, null, false);
         tvValue = (TextView) view.findViewById(R.id.node_value);
         tvValue.setText(value.text);
 
-        final PrintView iconView = (PrintView) view.findViewById(R.id.icon);
-        iconView.setIconText(context.getResources().getString(value.icon));
-
-        arrowView = (PrintView) view.findViewById(R.id.arrow_icon);
+        arrowView = (ImageView) view.findViewById(R.id.arrow_icon);
 
         view.findViewById(R.id.btn_addFolder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TreeNode newFolder = new TreeNode(new IconTreeItemHolder.IconTreeItem(R.string.ic_folder, "New Folder"));
+                TreeNode newFolder = new TreeNode(new IconTreeItemHolder.IconTreeItem(R.string.ic_folder, "New Folder")).setViewHolder(new IconTreeItemHolder(context));
                 getTreeView().addNode(node, newFolder);
             }
         });
@@ -57,7 +53,7 @@ public class IconTreeItemHolder extends TreeNode.BaseNodeViewHolder<IconTreeItem
 
     @Override
     public void toggle(boolean active) {
-        arrowView.setIconText(context.getResources().getString(active ? R.string.ic_keyboard_arrow_down : R.string.ic_keyboard_arrow_right));
+        arrowView.animate().rotation(active? 90:0).start();
     }
 
     public static class IconTreeItem {
