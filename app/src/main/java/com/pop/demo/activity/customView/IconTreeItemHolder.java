@@ -31,7 +31,7 @@ public class IconTreeItemHolder extends TreeNode.BaseNodeViewHolder<IconTreeItem
         view.findViewById(R.id.btn_addFolder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TreeNode newFolder = new TreeNode(new IconTreeItemHolder.IconTreeItem("New Folder")).setViewHolder(new IconTreeItemHolder(context));
+                TreeNode newFolder = new TreeNode(new IconTreeItemHolder.IconTreeItem("New long name Folder")).setViewHolder(new IconTreeItemHolder(context));
                 getTreeView().addNode(node, newFolder);
             }
         });

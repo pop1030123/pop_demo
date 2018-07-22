@@ -229,7 +229,7 @@ public class AndroidTreeView {
         }
     }
 
-    private void expandNode(final TreeNode node, boolean includeSubnodes) {
+    private void expandNode(final TreeNode node, boolean includeSubNodes) {
         node.setExpanded(true);
         final TreeNode.BaseNodeViewHolder parentViewHolder = getViewHolderForNode(node);
         parentViewHolder.getNodeItemsView().removeAllViews();
@@ -240,8 +240,8 @@ public class AndroidTreeView {
         for (final TreeNode n : node.getChildren()) {
             addNode(parentViewHolder.getNodeItemsView(), n);
 
-            if (n.isExpanded() || includeSubnodes) {
-                expandNode(n, includeSubnodes);
+            if (n.isExpanded() || includeSubNodes) {
+                expandNode(n, includeSubNodes);
             }
 
         }
@@ -408,7 +408,7 @@ public class AndroidTreeView {
             viewHolder.setContainerStyle(containerStyle);
         }
         if (viewHolder.getTreeView() == null) {
-            viewHolder.setTreeViev(this);
+            viewHolder.setTreeView(this);
         }
         return viewHolder;
     }
